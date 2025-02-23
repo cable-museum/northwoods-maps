@@ -34,74 +34,45 @@ function showMap(map) {
 
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
-        const clickedCard = event.currentTarget; // Parent .card div clicked on
-        const allCardsInSection = [...card.parentElement.children]; // All cards in same card-container
-        const allCards = document.querySelectorAll(".card.is-selected");
+        const isAddIcon = Boolean(
+            event.target.closest(".is-addable .add-icon")
+        );
+        const isAnimation = Boolean(event.target.closest("#animated"));
         const map = card.getAttribute("data-map");
+        const isSelected = Boolean(card.classList.contains("is-selected"));
 
-        if (clickedCard.classList.contains("is-selected")) {
-            clickedCard.classList.remove("is-selected");
+        // Select and deselect cards
+        if (isSelected) {
             hideMap(map);
-
-            // If there is another selected card, add "is-addable" to all others
-            if (
-                allCardsInSection.find((card) =>
-                    card.classList.contains("is-selected")
-                )
-            ) {
-                allCardsInSection.forEach((card) => {
-                    if (!card.classList.contains("is-selected")) {
-                        card.classList.add("is-addable");
-                    }
-                });
-            } else {
-                allCardsInSection.forEach((card) => {
-                    card.classList.remove("is-addable");
-                });
-            }
-        } else if (card.classList.contains("is-addable")) {
-            clickedCard.classList.add("is-selected");
-            clickedCard.classList.remove("is-addable");
+            card.classList.remove("is-selected");
+        } else if (isAddIcon) {
+            card.classList.add("is-selected");
             showMap(map);
-
-            // Remove "is-addable" to all cards in section
-            allCardsInSection.forEach((card) => {
-                if (card.classList.contains("is-addable")) {
-                    card.classList.remove("is-addable");
-                }
-            });
         } else {
-            // Hide all maps Remove any cards with class "is-selected" in both sections
-            hideAllMaps();
-            allCards.forEach((card) => {
+            document.querySelectorAll(".card.is-selected").forEach((card) => {
                 card.classList.remove("is-selected");
             });
-
-            clickedCard.classList.add("is-selected");
+            hideAllMaps();
+            card.classList.add("is-selected");
             showMap(map);
+        }
 
-            // Add "is-addable" to other cards sections
-            allCardsInSection.forEach((card) => {
-                if (card !== clickedCard) {
+        // Make the is-addable state match the selections
+        if (document.querySelectorAll(".card.is-selected").length < 2) {
+            document
+                .querySelectorAll(".card:not(.is-selected)")
+                .forEach((card) => {
                     card.classList.add("is-addable");
-                }
-            });
+                });
+        } else {
+            document
+                .querySelectorAll(".card:not(.is-selected)")
+                .forEach((card) => {
+                    card.classList.remove("is-addable");
+                });
         }
     });
 });
-
-// function buttonClick(event) {
-//   event.preventDefault();
-//   console.log('#### event', event.target);
-//     // const button = document.querySelector(`[data-map="${name}"]`);
-//     // const map = document.getElementById(name);
-//     // console.log(button);
-//     // console.log(map);
-// }
-
-// document
-//     .querySelector('.card')
-//     .addEventListener("click", (event) => buttonClick(event));
 
 /*------ MAP ANIMATION ------*/
 
