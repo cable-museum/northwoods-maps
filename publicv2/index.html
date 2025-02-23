@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Maps of the Northwoods</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Kumbh+Sans:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.2.0/firebase-app-compat.js"></script>
+    <!-- 
+        initialize the SDK after all desired features are loaded, set useEmulator to false
+        to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
+ <body>
+    <main>
+        <div class="main-container">
+            <span class="material-symbols-rounded forest-icon">forest</span> 
+            <h1>Maps of the Northwods (WIP)</h1>
+            <p> Explore the diverse range of trees and other beings found in the Northwoods.  View up to 2 maps at a time.</p>
+
+            <!-- <h2> General </h2> -->
+
+            <div class="card-container">
+
+                <div data-map="balsam" class="card is-selected">
+                    <img src="./thumbnails/balsam.png">
+                    <div class="text-wrapper">
+                        <div class="name">Balsam Fir</div>
+                        <div class="details">Abies balsamea</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="maple" class="card is-addable">
+                    <img src="./thumbnails/maple.png">
+                    <div class="text-wrapper">
+                        <div class="name">Sugar Maple</div>
+                        <div class="details">Acer saccharum</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="redpine" class="card">
+                    <img src="./thumbnails/blank.png">
+                    <div class="text-wrapper">
+                        <div class="name">Name</div>
+                        <div class="details">Some short detail</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="whitepine" class="card">
+                    <img src="./thumbnails/blank.png">
+                    <div class="text-wrapper">
+                        <div class="name">Name</div>
+                        <div class="details">Some short detail</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="birch" class="card">
+                    <img src="./thumbnails/blank.png">
+                    <div class="text-wrapper">
+                        <div class="name">Name</div>
+                        <div class="details">Some short detail</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="aspen" class="card">
+                    <img src="./thumbnails/blank.png">
+                    <div class="text-wrapper">
+                        <div class="name">Name</div>
+                        <div class="details">Some short detail</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="oak" class="card">
+                    <img src="./thumbnails/blank.png">
+                    <div class="text-wrapper">
+                        <div class="name">Name</div>
+                        <div class="details">Some short detail</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+            </div>
+
+            <h2> Tree return after glaciation </h2>
+
+            <div id="animated" class="card-container">
+
+                <div data-map="oak-g" class="card">
+                    <img src="./thumbnails/oak.png">
+                    <div class="text-wrapper">
+                        <div class="name">Red Oak</div>
+                        <div class="details">Quercus rubra</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="maple-g" class="card">
+                    <img src="./thumbnails/maple.png">
+                    <div class="text-wrapper">
+                        <div class="name">Sugar Maple</div>
+                        <div class="details">Acer saccharum</div>
+                    </div>
+                    <span class="material-symbols-rounded add-icon">add_circle</span>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+            </div>
+        </div>
+
+        <!--   <div class="button-row">
+
+            <button data-tree="balsam" onclick="toggleSVG('balsam')">Balsam</button>
+            <button data-tree="maple" onclick="toggleSVG('maple')">Maple</button>
+            <button data-tree="redpine" class="off" onclick="toggleSVG('redpine')">Red Pine</button>
+            <button data-tree="whitepine" class="off" onclick="toggleSVG('whitepine')">White Pine</button>
+            <button data-tree="birch" class="off" onclick="toggleSVG('birch')">Birch</button>
+            <button data-tree="aspen" class="off" onclick="toggleSVG('aspen')">Aspen</button>
+            <button data-tree="oak" class="off" onclick="toggleSVG('oak')">Oak</button>
+        </div> -->
+
+        <div class="map-container">
+            <img class="base" src="./images/map_fill.svg" />
+            
+            <!-- layers -->
+            <img id="oak" class="layer map tree" src="./images/oak.svg" />
+            <img id="aspen" class="layer map tree" src="./images/aspen.svg" />
+            <img id="birch" class="layer map tree" src="./images/birch.svg" />
+            <img id="whitepine" class="layer map tree" src="./images/whitePine.svg" />
+            <img id="redpine" class="layer map tree" src="./images/redPine.svg" />
+            <img id="maple" class="layer map tree" src="./images/maple.svg" />
+            <img id="balsam" class="layer map tree" src="./images/balsam.svg" />
+            <!-- end trees -->
+            
+            <img class="layer" src="./images/map_outlines.svg" />
+        </div>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

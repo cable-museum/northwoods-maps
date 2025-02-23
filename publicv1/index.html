@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Northwoods tree maps</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.2.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.2.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/11.2.0/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  </head>
+  
+ <body>
+
+  <h1> Northwoods tree maps </h1>
+  <p> Proof of concept only, rough styles & maps are not 100% accruate
+  <div class="container">
+    <img class="base" src="./images/map_fill.svg" />
+    <!-- trees -->
+    <img id="oak" class="layer tree" src="./images/oak.svg" />
+    <img id="aspen" class="layer tree" src="./images/aspen.svg" />
+    <img id="birch" class="layer tree" src="./images/birch.svg" />
+    <img id="whitepine" class="layer tree" src="./images/whitePine.svg" />
+    <img id="redpine" class="layer tree" src="./images/redPine.svg" />
+    <img id="maple" class="layer tree" src="./images/maple.svg" />
+    <img id="balsam" class="layer tree" src="./images/balsam.svg" />
+    <!-- end trees -->
+    <img class="layer" src="./images/map_outlines.svg" />
+  </div>
+
+  <div class="button-row">
+    <button data-tree="balsam" onclick="toggleSVG('balsam')">Balsam</button>
+    <button data-tree="maple" onclick="toggleSVG('maple')">Maple</button>
+    <button data-tree="redpine" class="off" onclick="toggleSVG('redpine')">Red Pine</button>
+    <button data-tree="whitepine" class="off" onclick="toggleSVG('whitepine')">White Pine</button>
+    <button data-tree="birch" class="off" onclick="toggleSVG('birch')">Birch</button>
+    <button data-tree="aspen" class="off" onclick="toggleSVG('aspen')">Aspen</button>
+    <button data-tree="oak" class="off" onclick="toggleSVG('oak')">Oak</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
