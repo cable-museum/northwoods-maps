@@ -239,7 +239,8 @@ p {
 }
 
 .overlay {
-    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
     mix-blend-mode: overlay;
     mask: url("images/map_fill.svg"); /* reference to the SVG mask */
     mask-position: center;
@@ -250,7 +251,7 @@ p {
 }
 
 .is-visible {
-    display: block;
+    opacity: 1;
 }
 
 /*maps to start with*/
