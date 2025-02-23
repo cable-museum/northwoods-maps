@@ -273,7 +273,6 @@ p {
 /*------ RESPONSIVE STYLES ------*/
 
 @media (max-width: 1310px) {
-    .forest-icon,
     .card .details {
         display: none;
     }
@@ -302,6 +301,11 @@ p {
 }
 
 @media (max-width: 800px) {
+
+    .forest-icon {
+        display: none;
+    }
+
     main {
         flex-direction: column;
         justify-content: unset;
