@@ -1,7 +1,7 @@
 :root {
-/*  --- COLORS ---*/
+    /*  --- COLORS ---*/
     /*text*/
-    --light: #FEFFFA;
+    --light: #fefffa;
     --dark: #1d221b;
     /*main*/
     --primary: #204f0a;
@@ -9,27 +9,24 @@
     --card: #eaeae0;
     --background: #f5f5ef;
     --map-border: #545443;
-    --border: #1734092b;        
+    --border: #1734092b;
     /*maps*/
-    --balsam: #676BCC;
-    --maple: #85D3D9;
+    --balsam: #676bcc;
+    --maple: #85d3d9;
     --redpine: #eca342;
     --whitepine: #d1575a;
     --birch: #d663c6;
     --aspen: #fbd439;
     --oak: #53b351;
-/*  --- SPACING ---*/
+    /*  --- SPACING ---*/
     --responsive: 800px;
 }
 
 .material-symbols-rounded {
     font-size: 40px;
     color: var(--primary);
-    font-variation-settings:
-    'FILL' 0,        /* 0 = outlined, 1 = filled */
-    'wght' 400,  /* Font weight (100-700) */
-    'GRAD' 0,        /* Gradient, optional */
-    'opsz' 40;      /* Optical size (20-48 recommended) */
+    font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 400,
+        /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
 }
 
 /* 🔹 1. General Reset & Box Sizing */
@@ -47,7 +44,8 @@ html {
     scroll-behavior: smooth; /* Enables smooth scrolling */
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -65,7 +63,7 @@ body {
     min-height: 100vh; /* Ensure full height */
     color: var(--dark);
     background-color: var(--background);
-  /*  display: flex;
+    /*  display: flex;
     justify-content: center;    */
 }
 
@@ -74,21 +72,20 @@ main {
     height: 100%;
     width: 100%;
     overflow: auto;
-    max-width: 1800px; /* Keeps content at a readable width */
     padding: 40px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-/*    justify-content: center;*/
+    justify-content: center;
     gap: 40px;
 }
 
-.main-container {
+.controls-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    text-align: start; 
-    margin: auto;
+    text-align: start;
+    margin: auto 0;
 }
 
 h1 {
@@ -114,52 +111,6 @@ p {
     line-height: 24px;
     opacity: 56%;
 }
-
-/* Button row styles */
-/*.button-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
-}
-button[data-tree="balsam"] {
-        background-color: #676BCC;
-}
-button[data-tree="maple"] {
-        background-color: #85D3D9;
-}
-button[data-tree="redpine"] {
-        background-color: #ECA342;
-}
-button[data-tree="whitepine"] {
-        background-color: #D1575A;
-}
-button[data-tree="birch"] {
-        background-color: #D663C6;
-}
-button[data-tree="aspen"] {
-        background-color: #FBD439;
-}
-button[data-tree="oak"] {
-        background-color: #53B351;
-}
-button {
-    flex-grow: 1;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #6200ea;
-    color: white;
-    border-radius: 5px;
-}
-button:hover {
-    opacity: 0.8;
-}
-button.off {
-    background-color: rgba(0,0,0,0.4);
-}*/
-
 
 /*------ CARD STYLES ------*/
 
@@ -194,7 +145,8 @@ button.off {
     text-overflow: ellipsis;
 }
 
-.name, .details {
+.name,
+.details {
     min-width: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -217,6 +169,7 @@ button.off {
 
 .card img {
     height: 60px;
+    width: 60px;
 }
 
 .card .material-symbols-rounded {
@@ -238,124 +191,77 @@ button.off {
 }
 .is-selected .check-icon {
     display: block;
-    font-variation-settings:'FILL' 1; 
+    font-variation-settings: "FILL" 1;
     color: var(--balsam);
 }
 
 .is-selected .add-icon {
-        display: none;
+    display: none;
 }
 
 .is-addable .add-icon {
-        opacity: 1;
+    opacity: 1;
 }
-
-
-/*------ NEW MAP STYLES ------*/
-
-.new-map-container {
-    display: flex;
-    margin: auto;
-    width: 70%;
-    max-width: 700px;
-/*    background: linear-gradient(to right, #ff00ff, #50C8FF);*/
-    /*height: 100%;
-    min-height: 200px;
-    width: 100%;
-    min-width: 200px;*/
-    max-height: calc(100vh - 80px);
-}
-
-/* TODO: fixed position, mobile and desktop */
-/* TODO: boundary cases */
-/* TODO: other images */
-.new-real-img {
-    /*max-height: 100%;
-    max-width: 100%;*/
-    width: 100%;
-    height: auto;
-    max-height: 100%;
-    object-fit: contain;
-    background: var(--card);
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.new-img {
-/*    aspect-ratio: 849/917;*/
-    height: auto;
-/*    max-height: calc(100vh - 80px);*/
-    /* Only specify width so aspect ratio works */
-    width: 100%;
-    background: var(--card);
-/*    padding: 10px;*/
-    border-radius: 8px;
-}
-
-
-
-
-
-
-
-
-
 
 /*------ MAP STYLES ------*/
 
 .map-container {
-    background-color:var(--card);
     position: relative;
+    display: flex;
+    margin: auto 0;
     width: 70%;
     max-width: 700px;
-    overflow: hidden; 
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    border-radius: 8px;
+    max-height: calc(100vh - 80px);
 
-} 
-
-.base {
-    width: 130%;
-    height: auto;
-    object-fit: contain;
+    /* Sticky positioning */
+    position: sticky;
+    top: 0px;
 }
 
+/* Base holds space (relative), determines the width and height. */
+/* Only this svg needs preserveAspectRatio="xMidYMid meet". */
+.base {
+    position: relative;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    background: var(--card);
+}
+
+/* Layers are absolute positioned and match the width and height of the base */
 .layer {
     position: absolute;
-    width: 130%; /* Adjust size of the image to fit the container */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
 }
 
-.map {
-    position: absolute;
-    width: 130%; /* Adjust size of the image to fit the container */
-    height: auto; /* Maintain aspect ratio */
-    mask: url('images/map_fill.svg'); /* reference to the SVG mask */
-    mask-position: top left;
-    mask-size: 100% 100%;
-    -webkit-mask: url('images/map_fill.svg'); /* for cross-browser compatibility */
-    -webkit-mask-position: top left;
-    -webkit-mask-size: 100% 100%;
-
-}
-
-.tree{
+.overlay {
     display: none;
     mix-blend-mode: overlay;
+    mask: url("images/map_fill.svg"); /* reference to the SVG mask */
+    mask-position: center;
+    mask-size: 100% 100%;
+    -webkit-mask: url("images/map_fill.svg"); /* for cross-browser compatibility */
+    -webkit-mask-position: center;
+    -webkit-mask-size: 100% 100%;
+}
+
+.is-visible {
+    display: block;
 }
 
 /*maps to start with*/
-#balsam, #maple {
+#balsam,
+#maple {
     display: block;
 }
 
 /*------ RESPONSIVE STYLES ------*/
 
 @media (max-width: 1310px) {
-
     .forest-icon,
     .card .details {
         display: none;
@@ -367,6 +273,7 @@ button.off {
 
     .card img {
         height: 40px;
+        width: 40px;
     }
 
     .text-wrapper {
@@ -380,16 +287,18 @@ button.off {
     .card .material-symbols-rounded {
         font-size: 24px;
         margin: 0 8px;
-
     }
 }
 
-
-@media (max-width: 800px) { 
+@media (max-width: 800px) {
     main {
-        flex-direction: column; 
-        align-items: center; 
+        flex-direction: column;
+        justify-content: unset;
+        align-items: center;
         width: 100%;
+        gap: 0;
+        /* Let map-container handle this so it can cover what goes behind it */
+        padding-top: 0;
     }
 
     h1 {
@@ -406,11 +315,10 @@ button.off {
         line-height: 16px;
     }
 
-    .main-container {
+    .controls-container {
         order: 2;
         width: 100%;
         margin: 0;
-        padding: 16px;
         align-items: center;
         text-align: center;
     }
@@ -418,7 +326,30 @@ button.off {
     .map-container {
         order: 1;
         margin: 0;
+        /* Ignore half the padding */
+        max-height: calc(50vh + 40px);
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: linear-gradient(
+            to bottom,
+            var(--background) 92%,
+            transparent 100%
+        );
+        /* Take over top padding from main, also add padding to the bottom so
+        that the sticky map has some space around it */
+        padding: 40px 0;
     }
 
+    .overlay {
+        mask-size: 100% calc(100% - 80px);
+        -webkit-mask-size: 100% calc(100% - 80px);
+    }
 
+    /* We must add padding since absolutely positioned elements set to full
+    height won't take padding into account. */
+    .layer {
+        padding: 40px 0;
+    }
 }
