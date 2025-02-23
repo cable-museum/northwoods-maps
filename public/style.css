@@ -176,7 +176,7 @@ p {
 .card .material-symbols-rounded {
     font-size: 32px;
     color: var(--border);
-    margin: 0 12px;
+    padding: 12px;
 }
 
 .check-icon {
@@ -184,6 +184,9 @@ p {
 }
 
 .add-icon {
+    display: flex;
+    align-items: center;
+    position: relative;
     opacity: 0;
 }
 
@@ -203,6 +206,18 @@ p {
 
 .is-addable .add-icon {
     opacity: 1;
+}
+
+.add-icon::before {
+    content: "";
+    display: flex;
+    position: absolute;
+    left: 0px;
+    width: 2px;  
+    height: 24px;  
+    background-color: var(--border);
+    border-radius: 2px; 
+    opacity: 40%;
 }
 
 /*------ HOVER STYLES ------*/
@@ -282,7 +297,7 @@ p {
 
     .card .material-symbols-rounded {
         font-size: 24px;
-        margin: 0 8px;
+        padding: 8px;
     }
 }
 
