@@ -135,37 +135,42 @@
         </div>
 
         <div class="map-container">
-            <!-- map_fill holds space and has a background -->
-            <!-- Only this svg needs preserveAspectRatio="xMidYMid meet" -->
-            <img class="base" src="./images/map_fill.svg" />
+            <!-- svg viewBox and ".svg-base image" which together control zoom -->
+            <svg class="svg-base" viewBox="110 112.5 75 75" preserveAspectRatio="xMidYMid meet">
+                <image href="./images/map_fill.svg" />
+                <!-- Masks -->
+                <defs>
+                    <mask id="map-mask">
+                        <image href="./images/map_fill.svg" />
+                    </mask>
+                </defs>
 
-            <!-- absolute positioned layers -->
-            <img id="oak" class="layer overlay " src="./images/oak.svg" />
-            <img id="aspen" class="layer overlay" src="./images/aspen.svg" />
-            <img id="birch" class="layer overlay" src="./images/birch.svg" />
-            <img id="whitepine" class="layer overlay" src="./images/whitePine.svg" />
-            <img id="redpine" class="layer overlay" src="./images/redPine.svg" />
-            <img id="maple" class="layer overlay is-visible" src="./images/maple.svg" />
-            <img id="balsam" class="layer overlay is-visible" src="./images/balsam.svg" />
+                <!-- Overlays -->
+                <image id="oak" class="overlay" href="./images/oak.svg" style="mask: url(#map-mask);" />
+                <image id="aspen" class="overlay" href="./images/aspen.svg" style="mask: url(#map-mask);" />
+                <image id="birch" class="overlay" href="./images/birch.svg" style="mask: url(#map-mask);" />
+                <image id="whitepine" class="overlay" href="./images/whitePine.svg" style="mask: url(#map-mask);" />
+                <image id="redpine" class="overlay" href="./images/redPine.svg" style="mask: url(#map-mask);" />
+                <image id="maple" class="overlay is-visible" href="./images/maple.svg" style="mask: url(#map-mask);" />
+                <image id="balsam" class="overlay is-visible" href="./images/balsam.svg" style="mask: url(#map-mask);" />
 
-            <div id="animated-redoak" class="animation-container">
-                <img class="layer overlay" src="./images/anim_01.svg" />
-                <img class="layer overlay" src="./images/anim_02.svg" />
-                <img class="layer overlay" src="./images/anim_03.svg" />
-            </div>
+                <!-- Animations -->
+                <g id="animated-redoak" class="animation-container">
+                    <image class="overlay" href="./images/anim_01.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/anim_02.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/anim_03.svg" style="mask: url(#map-mask);"/>
+                </g>
 
-            <div id="animated-maple" class="animation-container">
-                <img class="layer overlay" src="./images/anim_03.svg" />
-                <img class="layer overlay" src="./images/anim_02.svg" />
-                <img class="layer overlay" src="./images/anim_01.svg" />
-            </div>
+                <g id="animated-maple" class="animation-container">
+                    <image class="overlay" href="./images/anim_03.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/anim_02.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/anim_01.svg" style="mask: url(#map-mask);"/>
+                </g>
 
-            <!-- absolutely positioned outlines on top of the fill -->
-            <img class="layer" src="./images/map_outlines.svg" />
+                <!-- Outlines -->
+                <image href="./images/map_outlines.svg" />
+            </svg>
         </div>
-
-        <!-- TODO: try to use whole US but zoom and position -->
-        <!-- TODO: buttons -->
 
         <script src="script.js"></script>
     </main>

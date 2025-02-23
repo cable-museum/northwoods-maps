@@ -218,9 +218,8 @@ p {
     top: 0px;
 }
 
-/* Base holds space (relative), determines the width and height. */
-/* Only this svg needs preserveAspectRatio="xMidYMid meet". */
-.base {
+/* Base holds space, determines the width and height. */
+.svg-base {
     position: relative;
     height: auto;
     width: 100%;
@@ -228,26 +227,17 @@ p {
     background: var(--card);
 }
 
-/* Layers are absolute positioned and match the width and height of the base */
-.layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 8px;
+/* See svg viewBox */
+.svg-base image {
+    height: 300px;
+    width: 300px;
 }
 
 .overlay {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     mix-blend-mode: overlay;
-    mask: url("images/map_fill.svg"); /* reference to the SVG mask */
-    mask-position: center;
-    mask-size: 100% 100%;
-    -webkit-mask: url("images/map_fill.svg"); /* for cross-browser compatibility */
-    -webkit-mask-position: center;
-    -webkit-mask-size: 100% 100%;
+    filter: saturate(1.5);
 }
 
 .is-visible {
@@ -334,17 +324,6 @@ p {
         );
         /* Take over top padding from main, also add padding to the bottom so
         that the sticky map has some space around it */
-        padding: 40px 0;
-    }
-
-    .overlay {
-        mask-size: 100% calc(100% - 80px);
-        -webkit-mask-size: 100% calc(100% - 80px);
-    }
-
-    /* We must add padding since absolutely positioned elements set to full
-    height won't take padding into account. */
-    .layer {
         padding: 40px 0;
     }
 }

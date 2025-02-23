@@ -113,7 +113,7 @@ document.querySelectorAll(".card").forEach(card => {
 
 function createAnimation(containerId) {
     const animationContainer = document.getElementById(containerId);
-    const layers = animationContainer.querySelectorAll(".layer");
+    const layers = animationContainer.querySelectorAll(".overlay");
     let currentIndex = 0;
     let animationId;
     let lastTime = 0;
@@ -172,7 +172,7 @@ function toggleAnimation(containerId) {
             stopAnimations.delete(id);
         }
         const container = document.getElementById(id);
-        const layers = container.querySelectorAll(".layer");
+        const layers = container.querySelectorAll(".overlay");
         layers.forEach((layer) => {
             layer.classList.remove("is-visible");
         });
