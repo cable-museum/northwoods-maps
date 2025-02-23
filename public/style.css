@@ -254,12 +254,6 @@ p {
     opacity: 1;
 }
 
-/*maps to start with*/
-#balsam,
-#maple {
-    display: block;
-}
-
 /*------ RESPONSIVE STYLES ------*/
 
 @media (max-width: 1310px) {
