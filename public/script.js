@@ -38,6 +38,12 @@ function hideMap(map) {
   document.getElementById(map).classList.remove("is-visible");
 }
 
+function hideAllMaps() {
+  document.querySelectorAll(".overlay").forEach(map => {
+    map.classList.remove("is-visible");
+  });
+}
+
 function showMap(map) {
   document.getElementById(map).classList.add("is-visible");
 }
@@ -61,6 +67,12 @@ document.querySelectorAll(".card").forEach(card => {
           }
         });
       }
+      else {
+        allCardsInSection.forEach(card => {
+          card.classList.remove("is-addable");
+      });
+      }
+
     }
     else if (card.classList.contains("is-addable")) {
       clickedCard.classList.add("is-selected");
@@ -75,13 +87,13 @@ document.querySelectorAll(".card").forEach(card => {
       });
     }
     else {
-      // Remove any cards with class "is-selected" in both sections
+      // Hide all maps Remove any cards with class "is-selected" in both sections
+      hideAllMaps();
       allCards.forEach(card => {
         card.classList.remove("is-selected")
       });
       
       clickedCard.classList.add("is-selected");
-      // Hide all maps
       showMap(map);
       
       // Add "is-addable" to other cards sections
@@ -110,6 +122,9 @@ document.querySelectorAll(".card").forEach(card => {
 //     .addEventListener("click", (event) => buttonClick(event));
 
 /*------ MAP ANIMATION ------*/
+
+const containerIds = ["animated-redoak", "animated-maple"];
+const stopAnimations = new Map();
 
 function createAnimation(containerId) {
     const animationContainer = document.getElementById(containerId);
@@ -158,28 +173,30 @@ function createAnimation(containerId) {
     return () => cancelAnimationFrame(animationId); // Return stop function
 }
 
-const containerIds = ["animated-redoak", "animated-maple"];
-const stopAnimations = new Map();
-function toggleAnimation(containerId) {
-    // Check before we clear everything
-    const shouldTurnOn = !stopAnimations.has(containerId);
+function stopAnimation(containerId) {
+  if (stopAnimations.has(id)) {
+      const stopFn = stopAnimations.get(id);
+      stopFn();
+      stopAnimations.delete(id);
+  }
+  const container = document.getElementById(id);
+  const layers = container.querySelectorAll(".overlay");
+  layers.forEach((layer) => {
+      layer.classList.remove("is-visible");
+  });
+}
 
-    // Stop all animations and hide their layers
+function stopAllAnimations() {
+  // Stop all animations and hide their layers
     containerIds.forEach((id) => {
-        if (stopAnimations.has(id)) {
-            const stopFn = stopAnimations.get(id);
-            stopFn();
-            stopAnimations.delete(id);
-        }
-        const container = document.getElementById(id);
-        const layers = container.querySelectorAll(".overlay");
-        layers.forEach((layer) => {
-            layer.classList.remove("is-visible");
-        });
+        stopAnimation(id);
     });
+}
 
-    // Should turn on the animation
-    if (shouldTurnOn) {
+function toggleAnimation(containerId) {
+    if (stopAnimations.has(containerId)) {
+        stopAnimation(containerId);
+    } else {
         stopAnimations.set(containerId, createAnimation(containerId));
     }
 }
