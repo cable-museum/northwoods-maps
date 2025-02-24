@@ -32,11 +32,10 @@ function showMap(map) {
     document.getElementById(map).classList.add("is-visible");
 }
 
+let cardHistory = ["balsam"];
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
-        const isAddIcon = Boolean(
-            event.target.closest(".is-addable .add-icon")
-        );
+        const isAddIcon = Boolean(event.target.closest(".add-icon"));
         const isAnimation = Boolean(event.target.closest("#animated"));
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
@@ -45,7 +44,19 @@ document.querySelectorAll(".card").forEach((card) => {
         if (isSelected) {
             hideMap(map);
             card.classList.remove("is-selected");
+            cardHistory.splice(cardHistory.indexOf(map), 1);
         } else if (isAddIcon) {
+            if (cardHistory.length < 2) {
+                cardHistory.push(map);
+            } else {
+                hideMap(cardHistory[0]);
+                document
+                    .querySelector(`[data-map="${cardHistory[0]}"]`)
+                    .classList.remove("is-selected");
+                cardHistory.shift();
+                cardHistory.push(map);
+            }
+
             card.classList.add("is-selected");
             showMap(map);
         } else {
@@ -53,24 +64,25 @@ document.querySelectorAll(".card").forEach((card) => {
                 card.classList.remove("is-selected");
             });
             hideAllMaps();
+            cardHistory = [map];
             card.classList.add("is-selected");
             showMap(map);
         }
 
-        // Make the is-addable state match the selections
-        if (document.querySelectorAll(".card.is-selected").length < 2) {
-            document
-                .querySelectorAll(".card:not(.is-selected)")
-                .forEach((card) => {
-                    card.classList.add("is-addable");
-                });
-        } else {
-            document
-                .querySelectorAll(".card:not(.is-selected)")
-                .forEach((card) => {
-                    card.classList.remove("is-addable");
-                });
-        }
+        // // Make the is-addable state match the selections
+        // if (document.querySelectorAll(".card.is-selected").length < 2) {
+        //     document
+        //         .querySelectorAll(".card:not(.is-selected)")
+        //         .forEach((card) => {
+        //             card.classList.add("is-addable");
+        //         });
+        // } else {
+        //     document
+        //         .querySelectorAll(".card:not(.is-selected)")
+        //         .forEach((card) => {
+        //             card.classList.remove("is-addable");
+        //         });
+        // }
     });
 });
 
