@@ -135,8 +135,9 @@
         </div>
 
         <div class="map-container">
-            <!-- svg viewBox and ".svg-base image" which together control zoom -->
-            <svg class="svg-base" viewBox="110 112.5 75 75" preserveAspectRatio="xMidYMid meet">
+            <!-- svg width, height, and viewBox together control zoom -->
+            <!-- We match the underlying svg size here so that safari renders them correctly -->
+            <svg class="svg-base" width="3400" height="3680" viewBox="1000 1073 1133 1226" preserveAspectRatio="xMidYMid meet">
                 <image href="./images/map_fill.svg" />
                 <!-- Masks -->
                 <defs>
