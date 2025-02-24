@@ -36,7 +36,6 @@ let cardHistory = ["balsam"];
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
         const isAddIcon = Boolean(event.target.closest(".add-icon"));
-        const isAnimation = Boolean(event.target.closest("#animated"));
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
 
@@ -44,6 +43,7 @@ document.querySelectorAll(".card").forEach((card) => {
         if (isSelected) {
             hideMap(map);
             card.classList.remove("is-selected");
+            toggleAnimation(map);
             cardHistory.splice(cardHistory.indexOf(map), 1);
         } else if (isAddIcon) {
             if (cardHistory.length < 2) {
@@ -53,36 +53,25 @@ document.querySelectorAll(".card").forEach((card) => {
                 document
                     .querySelector(`[data-map="${cardHistory[0]}"]`)
                     .classList.remove("is-selected");
+                toggleAnimation(cardHistory[0]);
                 cardHistory.shift();
                 cardHistory.push(map);
             }
 
             card.classList.add("is-selected");
             showMap(map);
+            toggleAnimation(map);
         } else {
             document.querySelectorAll(".card.is-selected").forEach((card) => {
                 card.classList.remove("is-selected");
             });
             hideAllMaps();
+            stopAllAnimations();
             cardHistory = [map];
             card.classList.add("is-selected");
             showMap(map);
+            toggleAnimation(map);
         }
-
-        // // Make the is-addable state match the selections
-        // if (document.querySelectorAll(".card.is-selected").length < 2) {
-        //     document
-        //         .querySelectorAll(".card:not(.is-selected)")
-        //         .forEach((card) => {
-        //             card.classList.add("is-addable");
-        //         });
-        // } else {
-        //     document
-        //         .querySelectorAll(".card:not(.is-selected)")
-        //         .forEach((card) => {
-        //             card.classList.remove("is-addable");
-        //         });
-        // }
     });
 });
 
@@ -92,6 +81,12 @@ const stopAnimations = new Map();
 
 function createAnimation(containerId) {
     const animationContainer = document.getElementById(containerId);
+    if (
+        !animationContainer ||
+        !animationContainer.classList.contains("animation-container")
+    ) {
+        return;
+    }
     const layers = animationContainer.querySelectorAll(".overlay");
     let currentIndex = 0;
     let animationId;
@@ -140,7 +135,7 @@ function createAnimation(containerId) {
 function stopAnimation(id) {
     if (stopAnimations.has(id)) {
         const stopFn = stopAnimations.get(id);
-        stopFn();
+        stopFn?.();
         stopAnimations.delete(id);
     }
     const container = document.getElementById(id);
@@ -163,9 +158,4 @@ function toggleAnimation(containerId) {
     } else {
         stopAnimations.set(containerId, createAnimation(containerId));
     }
-}
-
-function showOneAnimation(containerId) {
-    stopAllAnimations();
-    toggleAnimation(containerId);
 }
