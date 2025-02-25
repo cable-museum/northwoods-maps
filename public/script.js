@@ -15,6 +15,40 @@ for (const map of maps) {
     }
 }
 
+function hexToRgb(hex) {
+    // Remove the hash (#) at the start if it's there
+    hex = hex.replace('#', '');
+
+    // Convert the hex string into RGB
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    return { r, g, b };
+}
+
+function rgbToHex(rgb) {
+    const r = rgb.r.toString(16).padStart(2, '0');
+    const g = rgb.g.toString(16).padStart(2, '0');
+    const b = rgb.b.toString(16).padStart(2, '0');
+    
+    return `#${r}${g}${b}`;
+}
+
+function blendColors(baseHex, accentHex, opacity) {
+    // Convert hex to RGB
+    const base = hexToRgb(baseHex);
+    const accent = hexToRgb(accentHex);
+
+    // Calculate the blended RGB values
+    const r = Math.round((1 - opacity) * base.r + opacity * accent.r);
+    const g = Math.round((1 - opacity) * base.g + opacity * accent.g);
+    const b = Math.round((1 - opacity) * base.b + opacity * accent.b);
+
+    // Return the blended color in RGB format
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 
 /*------ MAP BUTTONS ------*/
 
@@ -35,6 +69,7 @@ function hideAllMaps() {
 function selectCard (card, map){
   card.classList.add("is-selected");
   card.style.borderColor = colors[map];
+  card.style.backgroundColor = blendColors('#f5f5ef', colors[map], 0.2);
 
   const checkIcon = card.querySelector(".check-icon");
   checkIcon.style.color = colors[map];
@@ -43,6 +78,7 @@ function selectCard (card, map){
 function unselectCard(card) {
   card.classList.remove("is-selected");
   card.style.borderColor = "";
+  card.style.backgroundColor = "";
 }
 
 function showMap(map) {
