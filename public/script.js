@@ -52,6 +52,10 @@ function blendColors(baseHex, accentHex, opacity) {
 
 /*------ MAP BUTTONS ------*/
 
+function showMap(map) {
+    document.getElementById(map).classList.add("is-visible");
+}
+
 function hideMap(map) {
     document.getElementById(map).classList.remove("is-visible");
 }
@@ -81,8 +85,27 @@ function unselectCard(card) {
   card.style.backgroundColor = "";
 }
 
-function showMap(map) {
-    document.getElementById(map).classList.add("is-visible");
+function unselectAllCards() {
+  document.querySelectorAll(".card.is-selected").forEach((card) => {
+    unselectCard(card);
+  });
+}
+
+document.getElementById("reset-button").addEventListener("click", function() {
+  hideAllMaps();
+  unselectAllCards();
+  showHideResetButton();
+});
+
+function showHideResetButton() {
+    const selectedItems = document.querySelectorAll(".is-selected");
+    const resetButton = document.getElementById("reset-button");
+    
+    if (selectedItems.length >= 2) {
+        resetButton.style.display = "flex"; // Show button
+    } else {
+        resetButton.style.display = "none"; // Hide button
+    }
 }
 
 let cardHistory = ["balsam"];
@@ -100,7 +123,7 @@ document.querySelectorAll(".card").forEach((card) => {
 
             updateAnimationState();
         } else if (isAddIcon) {
-            if (cardHistory.length < 2) {
+            if (cardHistory.length < 9) {
                 cardHistory.push(map);
             } else {
                 hideMap(cardHistory[0]);
@@ -114,9 +137,7 @@ document.querySelectorAll(".card").forEach((card) => {
 
             updateAnimationState();
         } else {
-            document.querySelectorAll(".card.is-selected").forEach((card) => {
-              unselectCard(card);
-            });
+            unselectAllCards();
             hideAllMaps();
             cardHistory = [map];
             selectCard(card, map);
@@ -124,6 +145,9 @@ document.querySelectorAll(".card").forEach((card) => {
 
             updateAnimationState();
         }
+
+        showHideResetButton();
+
     });
 });
 

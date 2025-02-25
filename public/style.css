@@ -239,6 +239,34 @@ p {
     top: 0px;
 }
 
+button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--dark);
+    padding: 8px;
+    border: 2px solid var(--border);
+    background-color: var(--background);
+    border-radius: 8px;
+    font-family: "Kumbh Sans", Arial, sans-serif;
+    opacity: 0.8;
+    cursor: pointer;
+    display: none;
+
+}
+
+button .refresh-icon {
+    color: var(--dark);
+    font-size: 16px;
+    padding-right: 4px;
+    font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 600,
+        /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
+
+}
+
 /* Base holds space, determines the width and height. */
 .svg-base {
     position: relative;
