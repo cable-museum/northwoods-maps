@@ -306,6 +306,7 @@ p {
         align-items: center;
         width: 100%;
         gap: 0;
+        padding: 16px;
         /* Let map-container handle this so it can cover what goes behind it */
         padding-top: 0;
     }
@@ -348,6 +349,6 @@ p {
         );
         /* Take over top padding from main, also add padding to the bottom so
         that the sticky map has some space around it */
-        padding: 40px 0;
+        padding: 16px 0;
     }
 }
