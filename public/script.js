@@ -26,6 +26,10 @@ function hideAllMaps() {
     document.querySelectorAll(".overlay").forEach((map) => {
         map.classList.remove("is-visible");
     });
+
+    document.querySelectorAll(".animation-container").forEach((container) => {
+        container.classList.remove("is-visible");
+    });
 }
 
 function showMap(map) {
@@ -43,8 +47,9 @@ document.querySelectorAll(".card").forEach((card) => {
         if (isSelected) {
             hideMap(map);
             card.classList.remove("is-selected");
-            toggleAnimation(map);
             cardHistory.splice(cardHistory.indexOf(map), 1);
+
+            updateAnimationState();
         } else if (isAddIcon) {
             if (cardHistory.length < 2) {
                 cardHistory.push(map);
@@ -53,109 +58,146 @@ document.querySelectorAll(".card").forEach((card) => {
                 document
                     .querySelector(`[data-map="${cardHistory[0]}"]`)
                     .classList.remove("is-selected");
-                toggleAnimation(cardHistory[0]);
                 cardHistory.shift();
                 cardHistory.push(map);
             }
 
             card.classList.add("is-selected");
             showMap(map);
-            toggleAnimation(map);
+
+            updateAnimationState();
         } else {
             document.querySelectorAll(".card.is-selected").forEach((card) => {
                 card.classList.remove("is-selected");
             });
             hideAllMaps();
-            stopAllAnimations();
             cardHistory = [map];
             card.classList.add("is-selected");
             showMap(map);
-            toggleAnimation(map);
+
+            updateAnimationState();
         }
     });
 });
 
 /*------ MAP ANIMATION ------*/
 
-const stopAnimations = new Map();
+let animationId = null;
+let lastAnimationTime = 0;
+let currentFrameIndex = 0;
+const FRAME_DURATION = 1000; // 1 second per frame
 
-function createAnimation(containerId) {
-    const animationContainer = document.getElementById(containerId);
-    if (
-        !animationContainer ||
-        !animationContainer.classList.contains("animation-container")
-    ) {
+// Function to start the global animation loop
+function startAnimation() {
+    if (animationId) {
         return;
     }
-    const layers = animationContainer.querySelectorAll(".overlay");
-    let currentIndex = 0;
-    let animationId;
-    let lastTime = 0;
-    const FRAME_DURATION = 1000; // 1 second per frame
 
-    // Hide all layers initially
-    layers.forEach((layer) => {
-        layer.classList.remove("is-visible");
-    });
+    lastAnimationTime = 0;
+    currentFrameIndex = 0; // Always start at the first frame
 
-    // Show first frame immediately
-    layers[currentIndex].classList.add("is-visible");
-    currentIndex = (currentIndex + 1) % layers.length;
-
-    function showNextLayer(timestamp) {
-        if (!lastTime) lastTime = timestamp;
-
-        const elapsed = timestamp - lastTime;
-
-        if (elapsed >= FRAME_DURATION) {
-            // Hide previous layer
-            if (currentIndex > 0) {
-                layers[currentIndex - 1].classList.remove("is-visible");
-            } else if (currentIndex === 0 && layers.length > 0) {
-                layers[layers.length - 1].classList.remove("is-visible");
-            }
-
-            // Show current layer
-            layers[currentIndex].classList.add("is-visible");
-
-            // Set up next iteration
-            currentIndex = (currentIndex + 1) % layers.length;
-
-            lastTime = timestamp;
-        }
-
-        // Continue animation
-        animationId = requestAnimationFrame(showNextLayer);
-    }
-
-    animationId = requestAnimationFrame(showNextLayer);
-    return () => cancelAnimationFrame(animationId); // Return stop function
-}
-
-function stopAnimation(id) {
-    if (stopAnimations.has(id)) {
-        const stopFn = stopAnimations.get(id);
-        stopFn?.();
-        stopAnimations.delete(id);
-    }
-    const container = document.getElementById(id);
-    const layers = container.querySelectorAll(".overlay");
-    layers.forEach((layer) => {
-        layer.classList.remove("is-visible");
-    });
-}
-
-function stopAllAnimations() {
-    // Stop all animations and hide their layers
+    // Initialize all animation containers
     document.querySelectorAll(".animation-container").forEach((container) => {
-        stopAnimation(container.id);
+        const layers = container.querySelectorAll(".overlay");
+
+        // Hide all layers initially
+        layers.forEach((layer) => {
+            layer.classList.remove("is-visible");
+        });
+
+        // Show first frame if container is visible
+        if (container.classList.contains("is-visible") && layers.length > 0) {
+            layers[0].classList.add("is-visible");
+        }
+    });
+
+    // Start the animation loop
+    animationId = requestAnimationFrame(animationLoop);
+}
+
+// Function to stop the animation
+function stopAnimation() {
+    if (!animationId) {
+        return;
+    }
+
+    cancelAnimationFrame(animationId);
+    animationId = null;
+    currentFrameIndex = 0;
+
+    // Reset all animations to hide all frames
+    document.querySelectorAll(".animation-container").forEach((container) => {
+        const layers = container.querySelectorAll(".overlay");
+        layers.forEach((layer) => {
+            layer.classList.remove("is-visible");
+        });
     });
 }
 
-function toggleAnimation(containerId) {
-    if (stopAnimations.has(containerId)) {
-        stopAnimation(containerId);
+// Find the maximum number of frames across all visible animation containers
+function getMaxFrameCount() {
+    let maxFrames = 0;
+
+    document
+        .querySelectorAll(".animation-container.is-visible")
+        .forEach((container) => {
+            const frameCount = container.querySelectorAll(".overlay").length;
+            maxFrames = Math.max(maxFrames, frameCount);
+        });
+
+    return maxFrames || 1; // Return at least 1 to avoid division by zero
+}
+
+// The main animation loop that handles all visible animation containers
+function animationLoop(timestamp) {
+    if (!lastAnimationTime) {
+        lastAnimationTime = timestamp;
+    }
+
+    const elapsed = timestamp - lastAnimationTime;
+
+    if (elapsed >= FRAME_DURATION) {
+        const maxFrames = getMaxFrameCount();
+
+        // Advance the global frame index
+        currentFrameIndex = (currentFrameIndex + 1) % maxFrames;
+
+        // Process each animation container
+        document
+            .querySelectorAll(".animation-container")
+            .forEach((container) => {
+                const layers = container.querySelectorAll(".overlay");
+                if (layers.length === 0) {
+                    return;
+                }
+
+                // Hide all layers
+                layers.forEach((layer) => {
+                    layer.classList.remove("is-visible");
+                });
+
+                // Show the current frame if it exists for this container
+                if (currentFrameIndex < layers.length) {
+                    layers[currentFrameIndex].classList.add("is-visible");
+                }
+            });
+
+        lastAnimationTime = timestamp;
+    }
+
+    // Continue animation
+    animationId = requestAnimationFrame(animationLoop);
+}
+
+// Check if any animation containers are visible and start/stop animation accordingly
+function updateAnimationState() {
+    const visibleAnimations = document.querySelectorAll(
+        ".animation-container.is-visible"
+    );
+
+    if (visibleAnimations.length > 0) {
+        startAnimation();
     } else {
-        stopAnimations.set(containerId, createAnimation(containerId));
+        stopAnimation();
     }
 }

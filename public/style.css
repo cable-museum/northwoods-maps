@@ -260,6 +260,13 @@ p {
     display: block;
 }
 
+.animation-container {
+    display: none;
+}
+.animation-container.is-visible {
+    display: block;
+}
+
 /*------ RESPONSIVE STYLES ------*/
 
 @media (max-width: 1310px) {
