@@ -1,20 +1,54 @@
-function isImageHidden(imgElement) {
-    const style = window.getComputedStyle(imgElement);
-    return style.display === "none";
-}
+/*------ COLOR VARIABLES ------*/
 
-function toggleSVG(treeName) {
-    const img = document.getElementById(treeName);
-    const button = document.querySelector(`button[data-tree="${treeName}"]`);
+const maps = ["balsam", "maple", "redpine", "whitepine", "birch", "aspen", "oak", "oak-g", "maple-g"]
+const colors = {}
 
-    if (isImageHidden(img)) {
-        button.classList.remove("off");
-        img.style.display = "block";
+for (const map of maps) {
+    const varName = `--${map}`;  // This creates --maple, --oak, etc.
+    const color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    
+    // Check if the color is valid
+    if (color) {
+        colors[map] = color;
     } else {
-        button.classList.add("off");
-        img.style.display = "none";
+        console.warn(`Color variable --${map} not found`);
     }
 }
+
+function hexToRgb(hex) {
+    // Remove the hash (#) at the start if it's there
+    hex = hex.replace('#', '');
+
+    // Convert the hex string into RGB
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    return { r, g, b };
+}
+
+function rgbToHex(rgb) {
+    const r = rgb.r.toString(16).padStart(2, '0');
+    const g = rgb.g.toString(16).padStart(2, '0');
+    const b = rgb.b.toString(16).padStart(2, '0');
+    
+    return `#${r}${g}${b}`;
+}
+
+function blendColors(baseHex, accentHex, opacity) {
+    // Convert hex to RGB
+    const base = hexToRgb(baseHex);
+    const accent = hexToRgb(accentHex);
+
+    // Calculate the blended RGB values
+    const r = Math.round((1 - opacity) * base.r + opacity * accent.r);
+    const g = Math.round((1 - opacity) * base.g + opacity * accent.g);
+    const b = Math.round((1 - opacity) * base.b + opacity * accent.b);
+
+    // Return the blended color in RGB format
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 
 /*------ MAP BUTTONS ------*/
 
@@ -32,6 +66,21 @@ function hideAllMaps() {
     });
 }
 
+function selectCard (card, map){
+  card.classList.add("is-selected");
+  card.style.borderColor = colors[map];
+  card.style.backgroundColor = blendColors('#f5f5ef', colors[map], 0.2);
+
+  const checkIcon = card.querySelector(".check-icon");
+  checkIcon.style.color = colors[map];
+}
+
+function unselectCard(card) {
+  card.classList.remove("is-selected");
+  card.style.borderColor = "";
+  card.style.backgroundColor = "";
+}
+
 function showMap(map) {
     document.getElementById(map).classList.add("is-visible");
 }
@@ -46,7 +95,7 @@ document.querySelectorAll(".card").forEach((card) => {
         // Select and deselect cards
         if (isSelected) {
             hideMap(map);
-            card.classList.remove("is-selected");
+            unselectCard(card);
             cardHistory.splice(cardHistory.indexOf(map), 1);
 
             updateAnimationState();
@@ -55,24 +104,22 @@ document.querySelectorAll(".card").forEach((card) => {
                 cardHistory.push(map);
             } else {
                 hideMap(cardHistory[0]);
-                document
-                    .querySelector(`[data-map="${cardHistory[0]}"]`)
-                    .classList.remove("is-selected");
+                unselectCard(document.querySelector(`[data-map="${cardHistory[0]}"]`));
                 cardHistory.shift();
                 cardHistory.push(map);
             }
 
-            card.classList.add("is-selected");
+            selectCard(card, map);
             showMap(map);
 
             updateAnimationState();
         } else {
             document.querySelectorAll(".card.is-selected").forEach((card) => {
-                card.classList.remove("is-selected");
+              unselectCard(card);
             });
             hideAllMaps();
             cardHistory = [map];
-            card.classList.add("is-selected");
+            selectCard(card, map);
             showMap(map);
 
             updateAnimationState();
