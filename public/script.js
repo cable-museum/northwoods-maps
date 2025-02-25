@@ -59,7 +59,7 @@ document.querySelectorAll(".card").forEach((card) => {
         // Select and deselect cards
         if (isSelected) {
             hideMap(map);
-            card.classList.remove("is-selected");
+            unselectCard(card);
             cardHistory.splice(cardHistory.indexOf(map), 1);
 
             updateAnimationState();
@@ -73,7 +73,6 @@ document.querySelectorAll(".card").forEach((card) => {
                 cardHistory.push(map);
             }
 
-            // card.classList.add("is-selected");
             selectCard(card, map);
             showMap(map);
 
