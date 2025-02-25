@@ -378,4 +378,15 @@ button .refresh-icon {
         that the sticky map has some space around it */
         padding: 40px 0;
     }
+
+    button {
+        font-size: 0;
+        bottom: 48px;
+        right: 8px;
+        padding: 4px;
+    }
+
+    button .refresh-icon {
+        padding: 0;
+    }
 }
