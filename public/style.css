@@ -382,9 +382,9 @@ button .refresh-icon {
 
     button {
         font-size: 0;
-        bottom: 48px;
+        bottom: 24px;
         right: 8px;
-        padding: 4px;
+        padding: 8px;
     }
 
     button .refresh-icon {
