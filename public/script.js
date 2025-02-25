@@ -91,63 +91,84 @@ function unselectAllCards() {
   });
 }
 
+
+function toggleButtons() {
+    const resetButton = document.getElementById("reset-button");
+    const layerButton = document.getElementById("layer-button");
+    
+    if (layerMode) {
+      layerButton.style.display = "none";
+      resetButton.style.display = "flex";
+    }
+    else {
+      layerButton.style.display = "flex";
+      resetButton.style.display = "none";
+    }
+}
+
+
+let layerMode = false;
+
+function toggleLayerMode() {
+    const cards = document.querySelectorAll('.card');
+    layerMode = !layerMode;
+    
+    cards.forEach(card => {
+        console.log(card);
+        const addIcon = card.querySelector('.add-icon');
+        
+        if (addIcon) {
+          if (layerMode){
+            addIcon.style.opacity = 1; 
+          }
+          else {
+            addIcon.style.opacity = 0; 
+          }
+        }
+    });
+
+    // toggleCardMode();
+    toggleButtons();
+}
+
+document.getElementById("layer-button").addEventListener("click", function() {
+  toggleLayerMode();
+});
+
+
 document.getElementById("reset-button").addEventListener("click", function() {
   hideAllMaps();
   unselectAllCards();
-  showHideResetButton();
+  toggleLayerMode();
 });
-
-function showHideResetButton() {
-    const selectedItems = document.querySelectorAll(".is-selected");
-    const resetButton = document.getElementById("reset-button");
-    
-    if (selectedItems.length >= 2) {
-        resetButton.style.display = "flex"; // Show button
-    } else {
-        resetButton.style.display = "none"; // Hide button
-    }
-}
 
 let cardHistory = ["balsam"];
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
-        const isAddIcon = Boolean(event.target.closest(".add-icon"));
+        // const isAddIcon = Boolean(event.target.closest(".add-icon"));
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
 
+        console.log('Layer mode: ' + layerMode);
         // Select and deselect cards
         if (isSelected) {
             hideMap(map);
             unselectCard(card);
-            cardHistory.splice(cardHistory.indexOf(map), 1);
-
             updateAnimationState();
-        } else if (isAddIcon) {
-            if (cardHistory.length < 9) {
-                cardHistory.push(map);
-            } else {
-                hideMap(cardHistory[0]);
-                unselectCard(document.querySelector(`[data-map="${cardHistory[0]}"]`));
-                cardHistory.shift();
-                cardHistory.push(map);
-            }
-
-            selectCard(card, map);
-            showMap(map);
-
-            updateAnimationState();
-        } else {
+        } 
+        else if (layerMode) {
+          selectCard(card, map);
+          showMap(map);
+          updateAnimationState();
+        }
+        else {
             unselectAllCards();
             hideAllMaps();
-            cardHistory = [map];
             selectCard(card, map);
             showMap(map);
-
             updateAnimationState();
         }
-
-        showHideResetButton();
-
+       
     });
 });
 
