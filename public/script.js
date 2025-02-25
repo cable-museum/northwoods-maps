@@ -1,20 +1,20 @@
-function isImageHidden(imgElement) {
-    const style = window.getComputedStyle(imgElement);
-    return style.display === "none";
-}
+/*------ COLOR VARIABLES ------*/
 
-function toggleSVG(treeName) {
-    const img = document.getElementById(treeName);
-    const button = document.querySelector(`button[data-tree="${treeName}"]`);
+const maps = ["balsam", "maple", "redpine", "whitepine", "birch", "aspen", "oak", "oak-g", "maple-g"]
+const colors = {}
 
-    if (isImageHidden(img)) {
-        button.classList.remove("off");
-        img.style.display = "block";
+for (const map of maps) {
+    const varName = `--${map}`;  // This creates --maple, --oak, etc.
+    const color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    
+    // Check if the color is valid
+    if (color) {
+        colors[map] = color;
     } else {
-        button.classList.add("off");
-        img.style.display = "none";
+        console.warn(`Color variable --${map} not found`);
     }
 }
+
 
 /*------ MAP BUTTONS ------*/
 
@@ -30,6 +30,19 @@ function hideAllMaps() {
     document.querySelectorAll(".animation-container").forEach((container) => {
         container.classList.remove("is-visible");
     });
+}
+
+function selectCard (card, map){
+  card.classList.add("is-selected");
+  card.style.borderColor = colors[map];
+
+  const checkIcon = card.querySelector(".check-icon");
+  checkIcon.style.color = colors[map];
+}
+
+function unselectCard(card) {
+  card.classList.remove("is-selected");
+  card.style.borderColor = "";
 }
 
 function showMap(map) {
@@ -55,24 +68,23 @@ document.querySelectorAll(".card").forEach((card) => {
                 cardHistory.push(map);
             } else {
                 hideMap(cardHistory[0]);
-                document
-                    .querySelector(`[data-map="${cardHistory[0]}"]`)
-                    .classList.remove("is-selected");
+                unselectCard(document.querySelector(`[data-map="${cardHistory[0]}"]`));
                 cardHistory.shift();
                 cardHistory.push(map);
             }
 
-            card.classList.add("is-selected");
+            // card.classList.add("is-selected");
+            selectCard(card, map);
             showMap(map);
 
             updateAnimationState();
         } else {
             document.querySelectorAll(".card.is-selected").forEach((card) => {
-                card.classList.remove("is-selected");
+              unselectCard(card);
             });
             hideAllMaps();
             cardHistory = [map];
-            card.classList.add("is-selected");
+            selectCard(card, map);
             showMap(map);
 
             updateAnimationState();

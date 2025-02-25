@@ -17,12 +17,10 @@
     --redpine: #eca342;
     --whitepine: #d1575a;
     --birch: #d663c6;
-    --aspen: #fbd439;
+    --aspen: #EAC225;
     --oak: #53b351;
-    --oak-g: #d1e13e;
-    --maple-g: #a2845e;
-    /*  --- SPACING ---*/
-    --responsive: 800px;
+    --oak-g: #B7C53E;
+    --maple-g: #A2845E;
 }
 
 .material-symbols-rounded {
