@@ -248,10 +248,13 @@ button {
     font-weight: 600;
     color: var(--dark);
     padding: 8px;
+    padding-right: 10px;
     border: 2px solid var(--border);
     background-color: var(--background);
     border-radius: 8px;
     font-family: "Kumbh Sans", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 16px;
     opacity: 0.8;
     cursor: pointer;
 }
@@ -383,13 +386,13 @@ button .material-symbols-rounded {
     }
 
     button {
-        font-size: 0;
+        font-size: 14;
         bottom: 24px;
         right: 8px;
-        padding: 8px;
+        font-weight: 500;
     }
 
     button .material-symbols-rounded {
-        padding: 0;
+/*        padding: 0;*/
     }
 }
