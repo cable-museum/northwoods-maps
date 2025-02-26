@@ -114,7 +114,6 @@ function toggleLayerMode() {
     layerMode = !layerMode;
     
     cards.forEach(card => {
-        console.log(card);
         const addIcon = card.querySelector('.add-icon');
         
         if (addIcon) {
@@ -127,7 +126,6 @@ function toggleLayerMode() {
         }
     });
 
-    // toggleCardMode();
     toggleButtons();
 }
 
@@ -149,7 +147,6 @@ document.querySelectorAll(".card").forEach((card) => {
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
 
-        console.log('Layer mode: ' + layerMode);
         // Select and deselect cards
         if (isSelected) {
             hideMap(map);
