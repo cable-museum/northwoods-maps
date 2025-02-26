@@ -118,8 +118,6 @@ function toggleLayerMode() {
         
         if (addIcon) {
           if (layerMode){
-            //TODO: This should prolly be actually display for font size
-            // so there is more room for the text on mobile
             addIcon.style.display = "flex"; 
             if (card.classList.contains("is-selected")) {
                 addIcon.style.display = "none"; 
