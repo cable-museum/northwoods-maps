@@ -370,7 +370,7 @@ button .material-symbols-rounded {
         order: 1;
         margin: 0;
         /* Ignore half the padding */
-        max-height: calc(50vh + 40px);
+        max-height: calc(50vh + 16px);
         width: 100%;
         position: sticky;
         top: 0;
