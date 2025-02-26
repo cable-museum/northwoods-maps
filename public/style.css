@@ -216,13 +216,23 @@ p {
 }
 
 /*------ HOVER STYLES ------*/
-/*desktop online, wouldnt see on touchscreens*/
 .card:hover {
     background-color: var(--cardHover);
 }
 .add-icon:hover {
     color: var(--map);
 }
+
+/* Reset hover styles for mobile */
+@media (hover: none) {
+  .card:hover {
+    background-color: var(--card);
+  }
+  .add-icon:hover  {
+    color: var(--border); 
+  }
+}
+
 
 /*------ MAP STYLES ------*/
 
