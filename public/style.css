@@ -184,10 +184,8 @@ p {
 }
 
 .add-icon {
-    display: flex;
+    display: none;
     align-items: center;
-    position: relative;
-    opacity: 0;
 }
 
 .is-selected.card {

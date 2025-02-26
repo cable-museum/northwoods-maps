@@ -118,10 +118,15 @@ function toggleLayerMode() {
         
         if (addIcon) {
           if (layerMode){
-            addIcon.style.opacity = 1; 
+            //TODO: This should prolly be actually display for font size
+            // so there is more room for the text on mobile
+            addIcon.style.display = "flex"; 
+            if (card.classList.contains("is-selected")) {
+                addIcon.style.display = "none"; 
+            }
           }
           else {
-            addIcon.style.opacity = 0; 
+            addIcon.style.display = "none"; 
           }
         }
     });
@@ -154,9 +159,10 @@ document.querySelectorAll(".card").forEach((card) => {
             updateAnimationState();
         } 
         else if (layerMode) {
-          selectCard(card, map);
-          showMap(map);
-          updateAnimationState();
+            selectCard(card, map);
+            showMap(map);
+            updateAnimationState();
+            card.querySelector('.add-icon').style.display = "none";
         }
         else {
             unselectAllCards();
