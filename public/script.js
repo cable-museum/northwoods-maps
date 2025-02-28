@@ -54,10 +54,12 @@ function blendColors(baseHex, accentHex, opacity) {
 
 function showMap(map) {
     document.getElementById(map).classList.add("is-visible");
+    checkResetButtonState();
 }
 
 function hideMap(map) {
     document.getElementById(map).classList.remove("is-visible");
+    checkResetButtonState();
 }
 
 function hideAllMaps() {
@@ -68,6 +70,7 @@ function hideAllMaps() {
     document.querySelectorAll(".animation-container").forEach((container) => {
         container.classList.remove("is-visible");
     });
+    checkResetButtonState();
 }
 
 function selectCard (card, map){
@@ -92,55 +95,28 @@ function unselectAllCards() {
 }
 
 
-function toggleButtons() {
+function checkResetButtonState() {
     const resetButton = document.getElementById("reset-button");
-    const layerButton = document.getElementById("layer-button");
     
-    if (layerMode) {
-      layerButton.style.display = "none";
-      resetButton.style.display = "flex";
-    }
-    else {
-      layerButton.style.display = "flex";
+    if (countMapsSelected() <= 1) {
       resetButton.style.display = "none";
     }
+    else {
+      resetButton.style.display = "flex";
+    }
 }
 
 
-let layerMode = false;
-
-function toggleLayerMode() {
-    const cards = document.querySelectorAll('.card');
-    layerMode = !layerMode;
-    
-    cards.forEach(card => {
-        const addIcon = card.querySelector('.add-icon');
-        
-        if (addIcon) {
-          if (layerMode){
-            addIcon.style.display = "flex"; 
-            if (card.classList.contains("is-selected")) {
-                addIcon.style.display = "none"; 
-            }
-          }
-          else {
-            addIcon.style.display = "none"; 
-          }
-        }
-    });
-
-    toggleButtons();
+function countMapsSelected() {
+    const count = document.querySelectorAll(`.card.is-selected`).length;
+    console.log('maps: '+ count)
+    return count
 }
-
-document.getElementById("layer-button").addEventListener("click", function() {
-  toggleLayerMode();
-});
 
 
 document.getElementById("reset-button").addEventListener("click", function() {
   hideAllMaps();
   unselectAllCards();
-  toggleLayerMode();
 });
 
 let cardHistory = ["balsam"];
@@ -152,24 +128,15 @@ document.querySelectorAll(".card").forEach((card) => {
 
         // Select and deselect cards
         if (isSelected) {
-            hideMap(map);
             unselectCard(card);
+            hideMap(map);
             updateAnimationState();
         } 
-        else if (layerMode) {
-            selectCard(card, map);
-            showMap(map);
-            updateAnimationState();
-            card.querySelector('.add-icon').style.display = "none";
-        }
         else {
-            unselectAllCards();
-            hideAllMaps();
             selectCard(card, map);
             showMap(map);
             updateAnimationState();
         }
-       
     });
 });
 
