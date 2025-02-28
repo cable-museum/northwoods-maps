@@ -266,6 +266,7 @@ function updateAnimationState() {
 }
 
 // ------- TIMEOUT RESET --------
+//TODO: show #reset-warning with countdown
 let timeout;
 
 function handleActivity() {

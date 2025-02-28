@@ -236,9 +236,6 @@ p {
 }
 
 button {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
     display: flex;
     align-items: center;
     font-weight: 600;
@@ -251,12 +248,7 @@ button {
     font-family: "Kumbh Sans", Arial, sans-serif;
     font-size: 13px;
     line-height: 16px;
-    opacity: 0.8;
     cursor: pointer;
-}
-
-#reset-button {
-    display: none;
 }
 
 button .material-symbols-rounded {
@@ -265,8 +257,49 @@ button .material-symbols-rounded {
     padding-right: 4px;
     font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 600,
         /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
-
 }
+
+.map-container button {
+}
+
+#reset-button {
+    position: absolute;
+    display: none;
+    bottom: 16px;
+    right: 16px;
+    opacity: 0.8;
+}
+
+#cancel-button {
+    bottom: 16px;
+    left: 16px;
+}
+
+#reset-warning {
+/*    display: flex;*/
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--light);
+    background-color: var(--dark);
+    padding: 16px;
+    font-size: 13px;
+    opacity: 0.8;
+    border-radius: 8px;
+}
+
+#reset-warning div{
+    min-width: 160px;
+    padding: 8px 8px 0 8px;
+}
+
 
 /* Base holds space, determines the width and height. */
 .svg-base {
