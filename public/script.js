@@ -1,6 +1,6 @@
 /*------ COLOR VARIABLES ------*/
 
-const maps = ["balsam", "maple", "redpine", "whitepine", "birch", "aspen", "oak", "oak-g", "maple-g"]
+const maps = ["balsam", "maple", "birch", "hemlock", "glacier", "loon", "oak", "whitepine"]
 const colors = {}
 
 for (const map of maps) {
@@ -52,11 +52,21 @@ function blendColors(baseHex, accentHex, opacity) {
 
 /*------ MAP BUTTONS ------*/
 
-function hideMap(map) {
-    document.getElementById(map).classList.remove("is-visible");
+function showMap(map) {
+    document.getElementById(map).classList.add("is-visible");
+    checkResetButtonState();
 }
 
-function hideAllMaps() {
+function hideMap(map) {
+    document.getElementById(map).classList.remove("is-visible");
+    checkResetButtonState();
+}
+
+function resetAll() {
+    document.querySelectorAll(".card.is-selected").forEach((card) => {
+        unselectCard(card);
+      });
+
     document.querySelectorAll(".overlay").forEach((map) => {
         map.classList.remove("is-visible");
     });
@@ -64,6 +74,8 @@ function hideAllMaps() {
     document.querySelectorAll(".animation-container").forEach((container) => {
         container.classList.remove("is-visible");
     });
+    checkResetButtonState();
+
 }
 
 function selectCard (card, map){
@@ -81,49 +93,53 @@ function unselectCard(card) {
   card.style.backgroundColor = "";
 }
 
-function showMap(map) {
-    document.getElementById(map).classList.add("is-visible");
+function checkResetButtonState() {
+    const resetButton = document.getElementById("reset-button");
+    
+    if (countMapsSelected() <= 1) {
+      resetButton.style.display = "none";
+    }
+    else {
+      resetButton.style.display = "flex";
+    }
 }
 
-let cardHistory = ["balsam"];
+function countMapsSelected() {
+    const count = document.querySelectorAll(`.card.is-selected`).length;
+    return count
+}
+
+
+document.getElementById("reset-button").addEventListener("click", function() {
+  resetAll();
+});
+
+let sectionActive = "default";
+
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
-        const isAddIcon = Boolean(event.target.closest(".add-icon"));
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
+        const sectionID = this.closest(".card-container").id;
 
-        // Select and deselect cards
+        // Unselected card
         if (isSelected) {
-            hideMap(map);
             unselectCard(card);
-            cardHistory.splice(cardHistory.indexOf(map), 1);
-
+            hideMap(map);
             updateAnimationState();
-        } else if (isAddIcon) {
-            if (cardHistory.length < 2) {
-                cardHistory.push(map);
-            } else {
-                hideMap(cardHistory[0]);
-                unselectCard(document.querySelector(`[data-map="${cardHistory[0]}"]`));
-                cardHistory.shift();
-                cardHistory.push(map);
+        } 
+        // Selected Card
+        else {
+             if (sectionActive !== sectionID) {
+                // Reset if in a different section
+                resetAll();
             }
-
             selectCard(card, map);
             showMap(map);
-
-            updateAnimationState();
-        } else {
-            document.querySelectorAll(".card.is-selected").forEach((card) => {
-              unselectCard(card);
-            });
-            hideAllMaps();
-            cardHistory = [map];
-            selectCard(card, map);
-            showMap(map);
-
             updateAnimationState();
         }
+
+        sectionActive = sectionID;
     });
 });
 
@@ -248,6 +264,24 @@ function updateAnimationState() {
         stopAnimation();
     }
 }
+
+// ------- TIMEOUT RESET --------
+//TODO: show #reset-warning with countdown
+//TODO: make warning not move when it changes the number
+let timeout;
+
+function handleActivity() {
+    clearTimeout(timeout); // Reset the timer
+    timeout = setTimeout(() => {
+        console.log("No activity for 30 seconds, resetting Map...");
+        resetAll();
+    }, 30000); // 30-second delay
+}
+
+// Example: Listen for keypresses or mouse movements
+document.addEventListener("mousemove", handleActivity);
+document.addEventListener("keypress", handleActivity);
+
 
 // ------- PWA --------
 if ("serviceWorker" in navigator) {

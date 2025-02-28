@@ -14,13 +14,12 @@
     /*maps*/
     --balsam: #676bcc;
     --maple: #68B6BC;
-    --redpine: #eca342;
-    --whitepine: #d1575a;
     --birch: #d663c6;
-    --aspen: #EAC225;
-    --oak: #53b351;
-    --oak-g: #B7C53E;
-    --maple-g: #A2845E;
+    --hemlock: #d1575a;
+    --glacier: #eca342;
+    --loon: #EAC225;
+    --oak: #B7C53E;
+    --whitepine: #A2845E;
 }
 
 .material-symbols-rounded {
@@ -184,10 +183,8 @@ p {
 }
 
 .add-icon {
-    display: flex;
+    display: none;
     align-items: center;
-    position: relative;
-    opacity: 1;
 }
 
 .is-selected.card {
@@ -203,23 +200,11 @@ p {
     display: none;
 }
 
-.add-icon::before {
-    content: "";
-    display: flex;
-    position: absolute;
-    left: 0px;
-    width: 2px;
-    height: 24px;
-    background-color: var(--border);
-    border-radius: 2px;
-    opacity: 40%;
-}
-
 /*------ HOVER STYLES ------*/
 .card:hover {
     background-color: var(--cardHover);
 }
-.add-icon:hover {
+.card:hover .add-icon {
     color: var(--map);
 }
 
@@ -241,13 +226,79 @@ p {
     display: flex;
     margin: auto 0;
     width: 70%;
-    max-width: 700px;
+    max-width: 800px;
     max-height: calc(100vh - 80px);
 
     /* Sticky positioning */
     position: sticky;
     top: 0px;
 }
+
+button {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--dark);
+    padding: 8px;
+    padding-right: 10px;
+    border: 2px solid var(--border);
+    background-color: var(--background);
+    border-radius: 8px;
+    font-family: "Kumbh Sans", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+button .material-symbols-rounded {
+    color: var(--dark);
+    font-size: 16px;
+    padding-right: 4px;
+    font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 600,
+        /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
+}
+
+.map-container button {
+}
+
+#reset-button {
+    position: absolute;
+    display: none;
+    bottom: 16px;
+    right: 16px;
+    opacity: 0.8;
+}
+
+#cancel-button {
+    bottom: 16px;
+    left: 16px;
+}
+
+#reset-warning {
+/*    display: flex;*/
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--light);
+    background-color: var(--dark);
+    padding: 16px;
+    font-size: 13px;
+    opacity: 0.8;
+    border-radius: 8px;
+}
+
+#reset-warning div{
+    min-width: 160px;
+    padding: 8px 8px 0 8px;
+}
+
 
 /* Base holds space, determines the width and height. */
 .svg-base {
@@ -277,7 +328,14 @@ p {
 
 /*------ RESPONSIVE STYLES ------*/
 
+@media (min-width: 1610px) {
+    main {
+        gap: 100px;
+    }
+}
+
 @media (max-width: 1310px) {
+
     .card .details {
         display: none;
     }
@@ -360,5 +418,16 @@ p {
         /* Take over top padding from main, also add padding to the bottom so
         that the sticky map has some space around it */
         padding: 16px 0;
+    }
+
+    button {
+        font-size: 14;
+        bottom: 24px;
+        right: 8px;
+        font-weight: 500;
+    }
+
+    button .material-symbols-rounded {
+/*        padding: 0;*/
     }
 }
