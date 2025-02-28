@@ -109,33 +109,41 @@ function checkResetButtonState() {
 
 function countMapsSelected() {
     const count = document.querySelectorAll(`.card.is-selected`).length;
-    console.log('maps: '+ count)
     return count
 }
 
 
 document.getElementById("reset-button").addEventListener("click", function() {
-  hideAllMaps();
   unselectAllCards();
+  hideAllMaps();
 });
 
-let cardHistory = ["balsam"];
+let sectionActive = "none";
+
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
+        const sectionID = this.closest(".card-container").id;
 
-        // Select and deselect cards
+        // Unselected card
         if (isSelected) {
             unselectCard(card);
             hideMap(map);
             updateAnimationState();
         } 
+        // Selected Card
         else {
+             if (sectionActive !== sectionID && sectionActive !== "none") {
+                unselectAllCards();
+                hideAllMaps();
+            }
             selectCard(card, map);
             showMap(map);
             updateAnimationState();
         }
+
+        sectionActive = sectionID;
     });
 });
 
