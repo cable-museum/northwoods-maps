@@ -45,16 +45,25 @@
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="redpine" class="card">
-                    <img src="./thumbnails/redpine.png">
+                <div data-map="birch" class="card">
+                    <img src="./thumbnails/birch.png">
                     <div class="text-wrapper">
-                        <div class="name">Red Pine</div>
-                        <div class="details">Pinus resinosa</div>
+                        <div class="name">Paper Birch</div>
+                        <div class="details">Betula papyrifera</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="whitepine" class="card">
+                <div data-map="hemlock" class="card">
+                    <img src="./thumbnails/hemlock.png">
+                    <div class="text-wrapper">
+                        <div class="name">Hemlock</div>
+                        <div class="details">Tsuga canadensis</div>
+                    </div>
+                    <span class="material-symbols-rounded check-icon">check_circle</span>
+                </div> 
+
+                <div data-map="glacier" class="card">
                     <img src="./thumbnails/glacier.png">
                     <div class="text-wrapper">
                         <div class="name">Glaciers</div>
@@ -63,29 +72,12 @@
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="birch" class="card">
-                    <img src="./thumbnails/bear.png">
-                    <div class="text-wrapper">
-                        <div class="name">Black Bear</div>
-                        <div class="details">Ursus americanus</div>
-                    </div>
-                    <span class="material-symbols-rounded check-icon">check_circle</span>
-                </div> 
 
-                <div data-map="aspen" class="card">
+                <div data-map="loon" class="card">
                     <img src="./thumbnails/loon.png">
                     <div class="text-wrapper">
                         <div class="name">Loon</div>
                         <div class="details">Gavia immer</div>
-                    </div>
-                    <span class="material-symbols-rounded check-icon">check_circle</span>
-                </div> 
-
-                <div data-map="oak" class="card">
-                    <img src="./thumbnails/canoe.png">
-                    <div class="text-wrapper">
-                        <div class="name">Ojibwe migration</div>
-                        <div class="details">xxxx years ago</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
@@ -96,20 +88,20 @@
 
             <div id="animated" class="card-container">
 
-                <div data-map="oak-g" class="card">
+                <div data-map="oak" class="card">
                     <img src="./thumbnails/oak.png">
                     <div class="text-wrapper">
-                        <div class="name">Red Oak</div>
-                        <div class="details">Quercus rubra</div>
+                        <div class="name">Oak</div>
+                        <div class="details">Quercus spp</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="maple-g" class="card">
-                    <img src="./thumbnails/maple.png">
+                <div data-map="whitepine" class="card">
+                    <img src="./thumbnails/whitepine.png">
                     <div class="text-wrapper">
-                        <div class="name">Sugar Maple</div>
-                        <div class="details">Acer saccharum</div>
+                        <div class="name">White pine</div>
+                        <div class="details">Quercus alba</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
@@ -130,22 +122,21 @@
                 </defs>
 
                 <!-- Overlays -->
-                <image id="oak" class="overlay" href="./images/oak.svg" style="mask: url(#map-mask);" />
-                <image id="aspen" class="overlay" href="./images/aspen.svg" style="mask: url(#map-mask);" />
-                <image id="birch" class="overlay" href="./images/birch.svg" style="mask: url(#map-mask);" />
-                <image id="whitepine" class="overlay" href="./images/whitePine.svg" style="mask: url(#map-mask);" />
-                <image id="redpine" class="overlay" href="./images/redPine.svg" style="mask: url(#map-mask);" />
-                <image id="maple" class="overlay" href="./images/maple.svg" style="mask: url(#map-mask);" />
                 <image id="balsam" class="overlay" href="./images/balsam.svg" style="mask: url(#map-mask);" />
+                <image id="maple" class="overlay" href="./images/maple.svg" style="mask: url(#map-mask);" />
+                <image id="birch" class="overlay" href="./images/birch.svg" style="mask: url(#map-mask);" />
+                <image id="hemlock" class="overlay" href="./images/whitePine.svg" style="mask: url(#map-mask);" />
+                <image id="glacier" class="overlay" href="./images/redPine.svg" style="mask: url(#map-mask);" />
+                <image id="loon" class="overlay" href="./images/aspen.svg" style="mask: url(#map-mask);" />
 
                 <!-- Animations -->
-                <g id="oak-g" class="animation-container">
+                <g id="oak" class="animation-container">
                     <image class="overlay" href="./images/anim_01.svg" style="mask: url(#map-mask);"/>
                     <image class="overlay" href="./images/anim_02.svg" style="mask: url(#map-mask);"/>
                     <image class="overlay" href="./images/anim_03.svg" style="mask: url(#map-mask);"/>
                 </g>
 
-                <g id="maple-g" class="animation-container">
+                <g id="whitepine" class="animation-container">
                     <image class="overlay" href="./images/anim2_01.svg" style="mask: url(#map-mask);"/>
                     <image class="overlay" href="./images/anim2_02.svg" style="mask: url(#map-mask);"/>
                     <image class="overlay" href="./images/anim2_03.svg" style="mask: url(#map-mask);"/>

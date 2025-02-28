@@ -1,6 +1,6 @@
 /*------ COLOR VARIABLES ------*/
 
-const maps = ["balsam", "maple", "redpine", "whitepine", "birch", "aspen", "oak", "oak-g", "maple-g"]
+const maps = ["balsam", "maple", "birch", "hemlock", "glacier", "loon", "oak", "whitepine"]
 const colors = {}
 
 for (const map of maps) {
@@ -267,6 +267,7 @@ function updateAnimationState() {
 
 // ------- TIMEOUT RESET --------
 //TODO: show #reset-warning with countdown
+//TODO: make warning not move when it changes the number
 let timeout;
 
 function handleActivity() {

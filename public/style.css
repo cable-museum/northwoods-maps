@@ -14,13 +14,12 @@
     /*maps*/
     --balsam: #676bcc;
     --maple: #68B6BC;
-    --redpine: #eca342;
-    --whitepine: #d1575a;
     --birch: #d663c6;
-    --aspen: #EAC225;
-    --oak: #53b351;
-    --oak-g: #B7C53E;
-    --maple-g: #A2845E;
+    --hemlock: #d1575a;
+    --glacier: #eca342;
+    --loon: #EAC225;
+    --oak: #B7C53E;
+    --whitepine: #A2845E;
 }
 
 .material-symbols-rounded {
