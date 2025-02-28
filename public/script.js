@@ -75,7 +75,6 @@ function resetAll() {
         container.classList.remove("is-visible");
     });
     checkResetButtonState();
-    // sectionActive = null;
 
 }
 
@@ -265,6 +264,22 @@ function updateAnimationState() {
         stopAnimation();
     }
 }
+
+// ------- TIMEOUT RESET --------
+let timeout;
+
+function handleActivity() {
+    clearTimeout(timeout); // Reset the timer
+    timeout = setTimeout(() => {
+        console.log("No activity for 30 seconds, resetting Map...");
+        resetAll();
+    }, 30000); // 30-second delay
+}
+
+// Example: Listen for keypresses or mouse movements
+document.addEventListener("mousemove", handleActivity);
+document.addEventListener("keypress", handleActivity);
+
 
 // ------- PWA --------
 if ("serviceWorker" in navigator) {
