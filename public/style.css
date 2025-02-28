@@ -227,7 +227,7 @@ p {
     display: flex;
     margin: auto 0;
     width: 70%;
-    max-width: 700px;
+    max-width: 800px;
     max-height: calc(100vh - 80px);
 
     /* Sticky positioning */
@@ -329,7 +329,14 @@ button .material-symbols-rounded {
 
 /*------ RESPONSIVE STYLES ------*/
 
+@media (min-width: 1610px) {
+    main {
+        gap: 100px;
+    }
+}
+
 @media (max-width: 1310px) {
+
     .card .details {
         display: none;
     }
