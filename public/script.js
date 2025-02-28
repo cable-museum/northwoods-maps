@@ -122,7 +122,6 @@ document.getElementById("reset-button").addEventListener("click", function() {
 let cardHistory = ["balsam"];
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
-        // const isAddIcon = Boolean(event.target.closest(".add-icon"));
         const map = card.getAttribute("data-map");
         const isSelected = Boolean(card.classList.contains("is-selected"));
 

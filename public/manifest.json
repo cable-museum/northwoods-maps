@@ -1,7 +1,10 @@
 {
   "name": "Maps of the Northwoods",
   "short_name": "App",
+  // FIREBASE DEPLOY
   "start_url": "/",
+  // GITHUB DEPLOY
+  // "start_url": "/northwoods-maps/",
   "display": "standalone",
   "background_color": "#f5f5ef",
   "theme_color": "#f5f5ef",
