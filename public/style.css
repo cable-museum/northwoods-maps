@@ -420,14 +420,10 @@ button .material-symbols-rounded {
         padding: 16px 0;
     }
 
-    button {
+    #reset-button {
         font-size: 14;
         bottom: 24px;
         right: 8px;
         font-weight: 500;
-    }
-
-    button .material-symbols-rounded {
-/*        padding: 0;*/
     }
 }
