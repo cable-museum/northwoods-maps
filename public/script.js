@@ -62,7 +62,11 @@ function hideMap(map) {
     checkResetButtonState();
 }
 
-function hideAllMaps() {
+function resetAll() {
+    document.querySelectorAll(".card.is-selected").forEach((card) => {
+        unselectCard(card);
+      });
+
     document.querySelectorAll(".overlay").forEach((map) => {
         map.classList.remove("is-visible");
     });
@@ -71,6 +75,8 @@ function hideAllMaps() {
         container.classList.remove("is-visible");
     });
     checkResetButtonState();
+    // sectionActive = null;
+
 }
 
 function selectCard (card, map){
@@ -88,13 +94,6 @@ function unselectCard(card) {
   card.style.backgroundColor = "";
 }
 
-function unselectAllCards() {
-  document.querySelectorAll(".card.is-selected").forEach((card) => {
-    unselectCard(card);
-  });
-}
-
-
 function checkResetButtonState() {
     const resetButton = document.getElementById("reset-button");
     
@@ -106,7 +105,6 @@ function checkResetButtonState() {
     }
 }
 
-
 function countMapsSelected() {
     const count = document.querySelectorAll(`.card.is-selected`).length;
     return count
@@ -114,11 +112,10 @@ function countMapsSelected() {
 
 
 document.getElementById("reset-button").addEventListener("click", function() {
-  unselectAllCards();
-  hideAllMaps();
+  resetAll();
 });
 
-let sectionActive = "none";
+let sectionActive = "default";
 
 document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function (event) {
@@ -134,9 +131,9 @@ document.querySelectorAll(".card").forEach((card) => {
         } 
         // Selected Card
         else {
-             if (sectionActive !== sectionID && sectionActive !== "none") {
-                unselectAllCards();
-                hideAllMaps();
+             if (sectionActive !== sectionID) {
+                // Reset if in a different section
+                resetAll();
             }
             selectCard(card, map);
             showMap(map);
