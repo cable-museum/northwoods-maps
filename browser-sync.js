@@ -6,5 +6,7 @@ browserSync.init({
   },
   watch: true,  // Explicitly enable watching files
   files: ["**/*"],
-  injectChanges: false,
+  injectChanges: true,
+  reloadDebounce: 500,
+  cahce: false
 });
