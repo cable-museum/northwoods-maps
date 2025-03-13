@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v4";
+const CACHE_NAME = "pwa-cache-v5";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -18,11 +18,12 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    fetch(event.request).catch(() => {
+      return caches.match(event.request); // Serve from cache if fetch fails (offline mode)
     })
   );
 });
+
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
@@ -32,5 +33,7 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  self.clients.claim(); // Ensures new service worker is used immediately
+  self.clients.claim(); // Ensures the new service worker is used immediately
+  self.skipWaiting(); // Force the update to be immediately active
 });
+
