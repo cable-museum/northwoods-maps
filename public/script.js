@@ -148,7 +148,7 @@ document.querySelectorAll(".card").forEach((card) => {
 let animationId = null;
 let lastAnimationTime = 0;
 let currentFrameIndex = 0;
-const FRAME_DURATION = 1000; // 1 second per frame
+const FRAME_DURATION = 750; // 0.75 second per frame
 
 // Function to start the global animation loop
 function startAnimation() {
