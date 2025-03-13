@@ -22,7 +22,7 @@
     <main>
         <div class="controls-container">
             <span class="material-symbols-rounded forest-icon">forest</span> 
-            <h1>Maps of the Northwods (WIP)</h1>
+            <h1>Maps of the Northwods</h1>
             <p> Explore the diverse range of trees and other beings found in the Northwoods</p>
 
             <div id="default" class="card-container">
@@ -113,37 +113,52 @@
             <!-- svg width, height, and viewBox together control zoom -->
             <!-- We match the underlying svg size here so that safari renders them correctly -->
             <svg class="svg-base" width="3400" height="3680" viewBox="1200 1380 850 920" preserveAspectRatio="xMidYMid meet">
-                <image href="./images/map_fill.svg" />
+                <image href="./images/final/fill.svg" />
                 <!-- Masks -->
                 <defs>
                     <mask id="map-mask">
-                        <image href="./images/map_fill.svg" />
+                        <image href="./images/final/mask.svg" />
                     </mask>
                 </defs>
 
                 <!-- Overlays -->
-                <image id="balsam" class="overlay" href="./images/balsam.svg" style="mask: url(#map-mask);" />
-                <image id="maple" class="overlay" href="./images/maple.svg" style="mask: url(#map-mask);" />
-                <image id="birch" class="overlay" href="./images/birch.svg" style="mask: url(#map-mask);" />
-                <image id="hemlock" class="overlay" href="./images/whitePine.svg" style="mask: url(#map-mask);" />
-                <image id="glacier" class="overlay" href="./images/redPine.svg" style="mask: url(#map-mask);" />
-                <image id="loon" class="overlay" href="./images/aspen.svg" style="mask: url(#map-mask);" />
+                <image id="hemlock" class="overlay" href="./images/final/hemlock.svg" style="mask: url(#map-mask);" />
+                <image id="birch" class="overlay" href="./images/final/birch.svg" style="mask: url(#map-mask);" />
+                <image id="balsam" class="overlay" href="./images/final/balsam.svg" style="mask: url(#map-mask);" />
+                <image id="maple" class="overlay" href="./images/final/maple.svg" style="mask: url(#map-mask);" />
+                <image id="loon" class="overlay" href="./images/final/loon.svg" style="mask: url(#map-mask);" />
+                <image id="glacier" class="overlay" href="./images/final/glacier.svg" style="mask: url(#map-mask);" />
 
                 <!-- Animations -->
-                <g id="oak" class="animation-container">
-                    <image class="overlay" href="./images/anim_01.svg" style="mask: url(#map-mask);"/>
-                    <image class="overlay" href="./images/anim_02.svg" style="mask: url(#map-mask);"/>
-                    <image class="overlay" href="./images/anim_03.svg" style="mask: url(#map-mask);"/>
+                <g id="whitepine" class="animation-container">
+                    <image class="overlay" href="./images/final/whitePine01.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine02.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine03.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine04.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine05.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine06.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine07.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine08.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine09.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/whitePine10.svg" style="mask: url(#map-mask);"/>
                 </g>
 
-                <g id="whitepine" class="animation-container">
-                    <image class="overlay" href="./images/anim2_01.svg" style="mask: url(#map-mask);"/>
-                    <image class="overlay" href="./images/anim2_02.svg" style="mask: url(#map-mask);"/>
-                    <image class="overlay" href="./images/anim2_03.svg" style="mask: url(#map-mask);"/>
+                <g id="oak" class="animation-container">
+                    <image class="overlay" href="./images/final/oak01.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak02.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak03.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak04.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak05.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak06.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak07.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak08.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak09.svg" style="mask: url(#map-mask);"/>
+                    <image class="overlay" href="./images/final/oak10.svg" style="mask: url(#map-mask);"/>
                 </g>
+
 
                 <!-- Outlines -->
-                <image href="./images/map_outlines.svg" />
+                <image href="./images/final/outlines.svg" />
 
             </svg>
                 <div id="reset-warning">

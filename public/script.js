@@ -268,28 +268,28 @@ function updateAnimationState() {
 // ------- TIMEOUT RESET --------
 //TODO: show #reset-warning with countdown
 //TODO: make warning not move when it changes the number
-let timeout;
+// let timeout;
 
-function handleActivity() {
-    clearTimeout(timeout); // Reset the timer
-    timeout = setTimeout(() => {
-        console.log("No activity for 30 seconds, resetting Map...");
-        resetAll();
-    }, 30000); // 30-second delay
-}
+// function handleActivity() {
+//     clearTimeout(timeout); // Reset the timer
+//     timeout = setTimeout(() => {
+//         console.log("No activity for 30 seconds, resetting Map...");
+//         resetAll();
+//     }, 30000); // 30-second delay
+// }
 
-// Example: Listen for keypresses or mouse movements
-document.addEventListener("mousemove", handleActivity);
-document.addEventListener("keypress", handleActivity);
+// // Example: Listen for keypresses or mouse movements
+// document.addEventListener("mousemove", handleActivity);
+// document.addEventListener("keypress", handleActivity);
 
 
-// ------- PWA --------
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js") // Use relative path
-      .then((reg) => console.log("Service Worker registered!", reg))
-      .catch((err) => console.log("Service Worker registration failed:", err));
-  });
-}
+// // ------- PWA --------
+// if ("serviceWorker" in navigator) {
+//   window.addEventListener("load", () => {
+//     navigator.serviceWorker.register("./service-worker.js") // Use relative path
+//       .then((reg) => console.log("Service Worker registered!", reg))
+//       .catch((err) => console.log("Service Worker registration failed:", err));
+//   });
+// }
 
 

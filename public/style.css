@@ -12,14 +12,14 @@
     --map-border: #545443;
     --border: #1734092b;
     /*maps*/
-    --balsam: #676bcc;
-    --maple: #68B6BC;
-    --birch: #d663c6;
-    --hemlock: #d1575a;
-    --glacier: #eca342;
-    --loon: #EAC225;
-    --oak: #B7C53E;
-    --whitepine: #A2845E;
+    --maple: #c2911e;
+    --balsam: #126057;
+    --birch: #B0BF33;
+    --hemlock: #c73c40;
+    --glacier: #68b6bc;
+    --loon: #464eb2;
+    --oak: #c26a1e;
+    --whitepine: #35773b;
 }
 
 .material-symbols-rounded {
@@ -234,6 +234,7 @@ p {
     top: 0px;
 }
 
+
 button {
     display: flex;
     align-items: center;
@@ -312,7 +313,6 @@ button .material-symbols-rounded {
 .overlay {
     display: none;
     mix-blend-mode: overlay;
-    filter: saturate(1.5);
 }
 
 .is-visible {
