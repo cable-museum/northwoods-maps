@@ -1,36 +1,36 @@
-const CACHE_NAME = 'pwa-cache-v3';
+const CACHE_NAME = "pwa-cache-v3";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
-        "./",
-        "./index.html",
-        "./style.css",
-        "./script.js",
-        "./icon-192.png",
-        "./icon-512.png"
+        "/",
+        "/index.html",
+        "/style.css",
+        "/script.js",
+        "/icon-192.png",
+        "/icon-512.png"
       ]);
     })
   );
+  self.skipWaiting(); // Forces immediate activation
 });
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    caches.match(event.request).then((cachedResponse) => {
+      return cachedResponse || fetch(event.request);
+    })
   );
 });
 
-// DELETE OLD CACHES ON ACTIVATE
-//TODO: Geoffry is this ok?
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME) // Keep only the latest version
-          .map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
     })
   );
+  self.clients.claim(); // Ensures new service worker is used immediately
 });
