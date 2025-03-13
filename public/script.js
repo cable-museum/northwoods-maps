@@ -148,7 +148,7 @@ document.querySelectorAll(".card").forEach((card) => {
 let animationId = null;
 let lastAnimationTime = 0;
 let currentFrameIndex = 0;
-const FRAME_DURATION = 1000; // 1 second per frame
+const FRAME_DURATION = 750; // 0.75 second per frame
 
 // Function to start the global animation loop
 function startAnimation() {
@@ -268,28 +268,28 @@ function updateAnimationState() {
 // ------- TIMEOUT RESET --------
 //TODO: show #reset-warning with countdown
 //TODO: make warning not move when it changes the number
-let timeout;
+// let timeout;
 
-function handleActivity() {
-    clearTimeout(timeout); // Reset the timer
-    timeout = setTimeout(() => {
-        console.log("No activity for 30 seconds, resetting Map...");
-        resetAll();
-    }, 30000); // 30-second delay
-}
+// function handleActivity() {
+//     clearTimeout(timeout); // Reset the timer
+//     timeout = setTimeout(() => {
+//         console.log("No activity for 30 seconds, resetting Map...");
+//         resetAll();
+//     }, 30000); // 30-second delay
+// }
 
-// Example: Listen for keypresses or mouse movements
-document.addEventListener("mousemove", handleActivity);
-document.addEventListener("keypress", handleActivity);
+// // Example: Listen for keypresses or mouse movements
+// document.addEventListener("mousemove", handleActivity);
+// document.addEventListener("keypress", handleActivity);
 
 
-// ------- PWA --------
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js") // Use relative path
-      .then((reg) => console.log("Service Worker registered!", reg))
-      .catch((err) => console.log("Service Worker registration failed:", err));
-  });
-}
+// // ------- PWA --------
+// if ("serviceWorker" in navigator) {
+//   window.addEventListener("load", () => {
+//     navigator.serviceWorker.register("./service-worker.js") // Use relative path
+//       .then((reg) => console.log("Service Worker registered!", reg))
+//       .catch((err) => console.log("Service Worker registration failed:", err));
+//   });
+// }
 
 
