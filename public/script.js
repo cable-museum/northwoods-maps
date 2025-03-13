@@ -283,13 +283,13 @@ function updateAnimationState() {
 // document.addEventListener("keypress", handleActivity);
 
 
-// // ------- PWA --------
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", () => {
-//     navigator.serviceWorker.register("./service-worker.js") // Use relative path
-//       .then((reg) => console.log("Service Worker registered!", reg))
-//       .catch((err) => console.log("Service Worker registration failed:", err));
-//   });
-// }
+// ------- PWA --------
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js") // Use relative path
+      .then((reg) => console.log("Service Worker registered!", reg))
+      .catch((err) => console.log("Service Worker registration failed:", err));
+  });
+}
 
 
