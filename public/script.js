@@ -56,7 +56,7 @@ function blendColors(baseHex, accentHex, opacity) {
 const verticalDistance = 6;  // Distance to move vertically (in pixels)
 let verticalDuration = 400; // Duration of the vertical movement (in milliseconds), faster than fade
 
-// Updated fadeIn with adjustable vertical distance and speed
+// Updated fadeIn with smoother opacity transition using ease-in for opacity
 function fadeIn(el, fadeDuration, verticalDuration) {
     return new Promise(resolve => {
         el.style.display = '';  // Ensure element is displayed
@@ -69,12 +69,13 @@ function fadeIn(el, fadeDuration, verticalDuration) {
             const progress = Math.min(elapsed / fadeDuration, 1);
             const verticalProgress = Math.min(elapsed / verticalDuration, 1); // Vertical progress
 
-            // Ease-in for opacity and vertical transform
-            const easedProgress = progress * progress; // Quadratic ease-in
-            el.style.opacity = easedProgress;
+            // Ease-in for opacity transition (more consistent)
+            const easedOpacityProgress = progress * progress; // Simple ease-in (quadratic)
+            el.style.opacity = easedOpacityProgress;
 
-            // Move element vertically with ease (faster for the vertical movement)
-            el.style.transform = `translateY(${(1 - verticalProgress) * verticalDistance}px)`; // Move up
+            // Move element vertically with ease
+            const easedVerticalProgress = Math.min(elapsed / verticalDuration, 1);
+            el.style.transform = `translateY(${(1 - easedVerticalProgress) * verticalDistance}px)`; // Move up
 
             if (progress < 1) {
                 requestAnimationFrame(step);
@@ -87,7 +88,7 @@ function fadeIn(el, fadeDuration, verticalDuration) {
     });
 }
 
-// Updated fadeOut with adjustable vertical distance and speed
+// Updated fadeOut with adjustable vertical distance and speed, using cubic bezier ease-out
 function fadeOut(el, fadeDuration, verticalDuration) {
     return new Promise(resolve => {
         const start = performance.now();
@@ -97,11 +98,11 @@ function fadeOut(el, fadeDuration, verticalDuration) {
             const progress = Math.min(elapsed / fadeDuration, 1);
             const verticalProgress = Math.min(elapsed / verticalDuration, 1); // Vertical progress
 
-            // Ease-out for opacity and transform
-            const easedProgress = 1 - Math.pow(1 - progress, 2); // Quadratic ease-out
+            // Ease-out for opacity and transform using cubic bezier
+            const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic Bezier ease-out
             el.style.opacity = 1 - easedProgress;
 
-            // Move element vertically with ease (same vertical progress scale)
+            // Move element vertically with ease
             el.style.transform = `translateY(${verticalProgress * verticalDistance}px)`; // Move down
 
             if (progress < 1) {
@@ -115,6 +116,7 @@ function fadeOut(el, fadeDuration, verticalDuration) {
         requestAnimationFrame(step);
     });
 }
+
 
 //------ Progress animation
 function animateProgressBar(duration) {
