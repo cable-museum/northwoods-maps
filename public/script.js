@@ -52,39 +52,33 @@ function blendColors(baseHex, accentHex, opacity) {
 /*------ QUESTION CYCLING ------*/
 
 //------ Fade helpers
-function fadeIn(el, duration) {
+// Adjustable variables for vertical transition
+const verticalDistance = 6;  // Distance to move vertically (in pixels)
+let verticalDuration = 400; // Duration of the vertical movement (in milliseconds), faster than fade
+
+// Updated fadeIn with adjustable vertical distance and speed
+function fadeIn(el, fadeDuration, verticalDuration) {
     return new Promise(resolve => {
-        el.style.display = '';
-        el.style.opacity = 0;
+        el.style.display = '';  // Ensure element is displayed
+        el.style.opacity = 0;    // Start with invisible
+        el.style.transform = `translateY(${verticalDistance}px)`;  // Start below
         const start = performance.now();
 
         function step(now) {
             const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease-in
+            const progress = Math.min(elapsed / fadeDuration, 1);
+            const verticalProgress = Math.min(elapsed / verticalDuration, 1); // Vertical progress
+
+            // Ease-in for opacity and vertical transform
             const easedProgress = progress * progress; // Quadratic ease-in
             el.style.opacity = easedProgress;
-            if (progress < 1) requestAnimationFrame(step);
-            else resolve();
-        }
 
-        requestAnimationFrame(step);
-    });
-}
+            // Move element vertically with ease (faster for the vertical movement)
+            el.style.transform = `translateY(${(1 - verticalProgress) * verticalDistance}px)`; // Move up
 
-function fadeOut(el, duration) {
-    return new Promise(resolve => {
-        const start = performance.now();
-
-        function step(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease-out
-            const easedProgress = 1 - Math.pow(1 - progress, 2); // Quadratic ease-out
-            el.style.opacity = 1 - easedProgress;
-            if (progress < 1) requestAnimationFrame(step);
-            else {
-                el.style.display = 'none';
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
                 resolve();
             }
         }
@@ -93,6 +87,34 @@ function fadeOut(el, duration) {
     });
 }
 
+// Updated fadeOut with adjustable vertical distance and speed
+function fadeOut(el, fadeDuration, verticalDuration) {
+    return new Promise(resolve => {
+        const start = performance.now();
+
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / fadeDuration, 1);
+            const verticalProgress = Math.min(elapsed / verticalDuration, 1); // Vertical progress
+
+            // Ease-out for opacity and transform
+            const easedProgress = 1 - Math.pow(1 - progress, 2); // Quadratic ease-out
+            el.style.opacity = 1 - easedProgress;
+
+            // Move element vertically with ease (same vertical progress scale)
+            el.style.transform = `translateY(${verticalProgress * verticalDistance}px)`; // Move down
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                el.style.display = 'none';
+                resolve();
+            }
+        }
+
+        requestAnimationFrame(step);
+    });
+}
 
 //------ Progress animation
 function animateProgressBar(duration) {
@@ -123,8 +145,8 @@ async function showQuestionCycle() {
 
     // Fade in both question + progress bar
     await Promise.all([
-        fadeIn(question, transition),
-        fadeIn(progressBar, transition)
+        fadeIn(question, transition, verticalDuration),
+        fadeIn(progressBar, transition, verticalDuration)
     ]);
 
     // Animate the progress bar
@@ -132,8 +154,8 @@ async function showQuestionCycle() {
 
     // Fade out both at the same time
     await Promise.all([
-        fadeOut(question, transition),
-        fadeOut(progressBar, transition)
+        fadeOut(question, transition, verticalDuration),
+        fadeOut(progressBar, transition, verticalDuration)
     ]);
 
     // ⏱ Reset progress bar width *after* fade out completes
@@ -146,10 +168,9 @@ async function showQuestionCycle() {
     showQuestionCycle();
 }
 
-
- //------  Initial setup
+//------  Initial setup
 // Duration settings
-const transition = 800;
+const transition = 800;  // Fade-in/out duration
 const showQuestion = 10000;
 
 const questions = document.querySelectorAll('.question');
@@ -165,6 +186,7 @@ progressBar.style.width = '0%';
 
 // Start loop
 showQuestionCycle();
+
 
 
 
