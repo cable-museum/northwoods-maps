@@ -2,6 +2,7 @@
     /*  --- COLORS ---*/
     /*text*/
     --light: #fefffa;
+    --medium: #74776F;
     --dark: #1d221b;
     /*main*/
     --primary: #204f0a;
@@ -99,7 +100,7 @@ h1 {
 h2 {
     font-weight: 500;
     font-size: 18px;
-    margin: 32px 0 8px 0;
+/*    margin: 32px 0 8px 0;*/
 }
 
 h3 {
@@ -114,12 +115,55 @@ p {
     margin: 0;
     max-width: 600px;
     line-height: 24px;
-    opacity: 64%;
+    color: var(--medium);
 }
 
 #intro {
         margin-bottom: 4px;
     }
+
+/*------ CARD STYLES ------*/
+
+.question-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 32px;
+    margin-bottom: 4px;
+}
+
+.question-header h2 {
+    flex-grow: 1;
+}
+
+.question-counter {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    letter-spacing: -2px;
+    color: var(--medium);
+    font-weight: 400;
+    opacity: 1;
+    line-height: 40px;
+    margin-right: 8px;
+}
+
+.question-progress-container {
+    width: 100%;
+    height: 3px;
+    background-color: var(--card);
+    margin-bottom: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.question-progress {
+    background-color: var(--border);
+    height: 100%;
+    width: 0%;
+    border-radius: 8px;
+    opacity: 1; 
+}
 
 #question-container {
   position: relative;
@@ -133,12 +177,12 @@ p {
   top: 0;
   left: 0;
   opacity: 0;
-  transition: opacity 0.8s ease-in;
   width: 100%;
+  color: var(--medium);
 }
 
 .question.active {
-  opacity: 56%;
+  opacity: 100%
 }
 
 /*------ CARD STYLES ------*/
@@ -148,7 +192,6 @@ p {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     width: 100%;
-/*    margin: 24px 0;*/
 }
 
 .card {
@@ -374,8 +417,19 @@ button .material-symbols-rounded {
 
     h2 {
         font-size: 24px;
+    }
+
+    .question-header {
         margin-top: 36px;
+        margin-bottom: 8px;
+    }
+
+    .question-progress-container {
         margin-bottom: 12px;
+    }
+
+    .question-counter {
+        font-size: 16px;
     }
 
     ul,
@@ -479,9 +533,13 @@ button .material-symbols-rounded {
         font-size: 24px;
     }
 
-    h2 {
-        font-size: 20px;
-        margin: 24px 0 8px;
+    .question-header {
+        margin-top: 24px;
+        margin-bottom: 4px;
+    }
+
+     .question-progress-container {
+        margin-bottom: 8px;
     }
 
     h3 {
