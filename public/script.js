@@ -49,6 +49,31 @@ function blendColors(baseHex, accentHex, opacity) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+/*------ QUESTION CYCLING ------*/
+const questions = document.querySelectorAll('.question');
+let current = 0;
+
+// Duration in milliseconds between fade out and fade in
+const pauseDuration = 300; // try 500, 1500, etc.
+
+// Total interval (fade out + pause + fade in + visible time)
+const intervalDuration = 800 * 2 + pauseDuration + 10000;
+
+function showNextQuestion() {
+  // Fade out current
+  questions[current].classList.remove('active');
+
+  // Wait for fade out + pause, then fade in next
+  setTimeout(() => {
+    current = (current + 1) % questions.length;
+    questions[current].classList.add('active');
+  }, 1000 + pauseDuration); // 1s fade out + pause
+}
+
+setInterval(showNextQuestion, intervalDuration);
+
+
+
 
 /*------ MAP BUTTONS ------*/
 
