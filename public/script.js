@@ -50,28 +50,111 @@ function blendColors(baseHex, accentHex, opacity) {
 }
 
 /*------ QUESTION CYCLING ------*/
-const questions = document.querySelectorAll('.question');
-let current = 0;
 
-// Duration in milliseconds between fade out and fade in
-const pauseDuration = 300; // try 500, 1500, etc.
+function fadeIn(element, duration) {
+    element.style.opacity = 0;
+    element.style.display = ''; // reset to default display
+    const start = performance.now();
 
-// Total interval (fade out + pause + fade in + visible time)
-const intervalDuration = 800 * 2 + pauseDuration + 10000;
+    function animate(time) {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        element.style.opacity = progress;
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+    }
 
-function showNextQuestion() {
-  // Fade out current
-  questions[current].classList.remove('active');
-
-  // Wait for fade out + pause, then fade in next
-  setTimeout(() => {
-    current = (current + 1) % questions.length;
-    questions[current].classList.add('active');
-  }, 1000 + pauseDuration); // 1s fade out + pause
+    requestAnimationFrame(animate);
 }
 
-setInterval(showNextQuestion, intervalDuration);
+function fadeOut(element, duration, callback) {
+    const start = performance.now();
 
+    function animate(time) {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        element.style.opacity = 1 - progress;
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            element.style.display = 'none'; // hide the element completely
+            if (callback) callback();
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+const questions = document.querySelectorAll('.question');
+let current = 0;
+const progressBar = document.querySelector('.question-progress');
+
+// Timing configuration
+const transition = 800;
+// const pauseDuration = 300;
+const pauseDuration = 0;
+const showQuestion = 10000;
+const intervalDuration = (transition * 2) + pauseDuration + showQuestion;
+
+let startTime;
+let animationFrameId;
+
+function animateProgressBar(duration) {
+    progressBar.style.width = '0%';
+    progressBar.style.opacity = 1;
+    startTime = performance.now();
+
+    function step(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        progressBar.style.width = `${progress * 100}%`;
+        if (progress < 1) {
+            animationFrameId = requestAnimationFrame(step);
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+function showNextQuestion() {
+    let fadeOutCount = 0;
+
+    function handleFadeOutComplete() {
+        fadeOutCount++;
+        if (fadeOutCount === 2) {
+            // Both question and progress bar are faded out
+            current = (current + 1) % questions.length;
+
+            // Update current question number
+            document.getElementById('current-question').textContent = current + 1;
+
+            const nextQuestion = questions[current];
+            nextQuestion.style.display = '';
+            fadeIn(nextQuestion, transition);
+            fadeIn(progressBar, transition);
+            animateProgressBar(showQuestion);
+        }
+    }
+
+    // Start both fade-outs at the same time
+    fadeOut(questions[current], transition, handleFadeOutComplete);
+    fadeOut(progressBar, transition, handleFadeOutComplete);
+}
+
+
+// Init
+questions.forEach((q, index) => {
+    if (index !== 0) {
+        q.style.opacity = 0;
+        q.style.display = 'none';
+    }
+});
+progressBar.style.opacity = 1;
+animateProgressBar(showQuestion);
+
+// Loop
+setInterval(showNextQuestion, intervalDuration);
 
 
 
@@ -121,7 +204,7 @@ function unselectCard(card) {
 function checkResetButtonState() {
     const resetButton = document.getElementById("reset-button");
     
-    if (countMapsSelected() <= 1) {
+    if (countMapsSelected() < 1) {
       resetButton.style.display = "none";
     }
     else {
@@ -289,24 +372,6 @@ function updateAnimationState() {
         stopAnimation();
     }
 }
-
-// ------- TIMEOUT RESET --------
-//TODO: show #reset-warning with countdown
-//TODO: make warning not move when it changes the number
-// let timeout;
-
-// function handleActivity() {
-//     clearTimeout(timeout); // Reset the timer
-//     timeout = setTimeout(() => {
-//         console.log("No activity for 30 seconds, resetting Map...");
-//         resetAll();
-//     }, 30000); // 30-second delay
-// }
-
-// // Example: Listen for keypresses or mouse movements
-// document.addEventListener("mousemove", handleActivity);
-// document.addEventListener("keypress", handleActivity);
-
 
 // ------- PWA --------
 if ("serviceWorker" in navigator) {

@@ -2,6 +2,7 @@
     /*  --- COLORS ---*/
     /*text*/
     --light: #fefffa;
+    --medium: #74776F;
     --dark: #1d221b;
     /*main*/
     --primary: #204f0a;
@@ -99,11 +100,11 @@ h1 {
 h2 {
     font-weight: 500;
     font-size: 18px;
-    margin: 32px 0 8px 0;
+/*    margin: 32px 0 8px 0;*/
 }
 
 h3 {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
     margin: 20px 0 16px 0;
@@ -111,11 +112,57 @@ h3 {
 
 ul,
 p {
-/*    padding: 4px 0;*/
     margin: 0;
     max-width: 600px;
     line-height: 24px;
-    opacity: 56%;
+    color: var(--medium);
+}
+
+#intro {
+        margin-bottom: 4px;
+    }
+
+/*------ CARD STYLES ------*/
+
+.question-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 32px;
+    margin-bottom: 4px;
+}
+
+.question-header h2 {
+    flex-grow: 1;
+}
+
+.question-counter {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    letter-spacing: -2px;
+    color: var(--medium);
+    font-weight: 400;
+    opacity: 1;
+    line-height: 40px;
+    margin-right: 8px;
+}
+
+.question-progress-container {
+    width: 100%;
+    height: 3px;
+    background-color: var(--card);
+    margin-bottom: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.question-progress {
+    background-color: var(--border);
+    height: 100%;
+    width: 0%;
+    border-radius: 8px;
+    opacity: 1; 
 }
 
 #question-container {
@@ -130,12 +177,12 @@ p {
   top: 0;
   left: 0;
   opacity: 0;
-  transition: opacity 0.8s ease-in;
   width: 100%;
+  color: var(--medium);
 }
 
 .question.active {
-  opacity: 56%;
+  opacity: 100%
 }
 
 /*------ CARD STYLES ------*/
@@ -145,7 +192,6 @@ p {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     width: 100%;
-/*    margin: 24px 0;*/
 }
 
 .card {
@@ -298,6 +344,7 @@ button .material-symbols-rounded {
     opacity: 0.8;
 }
 
+
 #cancel-button {
     bottom: 16px;
     left: 16px;
@@ -370,8 +417,19 @@ button .material-symbols-rounded {
 
     h2 {
         font-size: 24px;
+    }
+
+    .question-header {
         margin-top: 36px;
+        margin-bottom: 8px;
+    }
+
+    .question-progress-container {
         margin-bottom: 12px;
+    }
+
+    .question-counter {
+        font-size: 16px;
     }
 
     ul,
@@ -380,6 +438,10 @@ button .material-symbols-rounded {
         font-weight: 400;
         line-height: 28px;
         max-width: 800px;
+    }
+
+    #intro {
+        margin-bottom: 8px;
     }
 
     .card img {
@@ -402,6 +464,18 @@ button .material-symbols-rounded {
         padding-right: 16px;
         padding-left: 4px;
     }
+
+    #reset-button {
+        font-size: 18px;
+        padding: 16px;
+}
+
+    #reset-button .material-symbols-rounded {
+        font-size: 20px;
+        padding-right: 8px;
+        font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 800,
+            /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
+}
 }
 
 @media (min-width: 1610px) {
@@ -456,12 +530,20 @@ button .material-symbols-rounded {
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 24px;
     }
 
-    h2 {
-        font-size: 16px;
-        margin: 24px 0 8px;
+    .question-header {
+        margin-top: 24px;
+        margin-bottom: 4px;
+    }
+
+     .question-progress-container {
+        margin-bottom: 8px;
+    }
+
+    .question-counter {
+        font-size: 13px;
     }
 
     h3 {
@@ -470,20 +552,14 @@ button .material-symbols-rounded {
     }
 
     p {
-        font-size: 12px;
-        line-height: 16px;
-    }
-
-    #intro {
-        margin-bottom: 8px;
-    }
+        font-size: 14px;
+        line-height: 20px;
+    } 
 
     .controls-container {
         order: 2;
         width: 100%;
         margin: 0;
-/*        align-items: center;*/
-/*        text-align: center;*/
     }
 
     .map-container {

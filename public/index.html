@@ -11,9 +11,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Kumbh+Sans:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Kumbh+Sans:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 
     <link rel="stylesheet" href="style.css">
 
@@ -80,11 +81,11 @@
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="birch" class="card">
-                    <img src="./thumbnails/birch.png">
+                <div data-map="maple" class="card">
+                    <img src="./thumbnails/maple.png">
                     <div class="text-wrapper">
-                        <div class="name">Paper Birch</div>
-                        <div class="details">Betula papyrifera</div>
+                        <div class="name">Sugar Maple</div>
+                        <div class="details">Acer saccharum</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
@@ -98,11 +99,11 @@
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
 
-                <div data-map="maple" class="card">
-                    <img src="./thumbnails/maple.png">
+                <div data-map="birch" class="card">
+                    <img src="./thumbnails/birch.png">
                     <div class="text-wrapper">
-                        <div class="name">Sugar Maple</div>
-                        <div class="details">Acer saccharum</div>
+                        <div class="name">Paper Birch</div>
+                        <div class="details">Betula papyrifera</div>
                     </div>
                     <span class="material-symbols-rounded check-icon">check_circle</span>
                 </div> 
@@ -110,7 +111,15 @@
             </div>
 
 
-             <h2>Questions to think about...</h2>
+             <div class='question-header'>
+                 <h2>Questions to think about...</h2>
+                 <p class="question-counter"><span id="current-question">1</span> of 4</p>
+    
+             </div>
+             <div class="question-progress-container">
+                <div class="question-progress"></div>
+             </div>
+
              <div id="question-container">
                 <p class="question active">How did the glaciers create habitat for loons?</p>
                 <p class="question">Professor John Pastor defines the Northwoods as the place where both Balsam Fir and Sugar Maple grow. Do you agree? Do you have another definition?</p>
@@ -173,10 +182,6 @@
                 <image href="./images/outlines.svg" />
 
             </svg>
-                <div id="reset-warning">
-                    <div>Map will soon reset due to inactivity in 5...</div>
-                    <button id="cancel-button"> Cancel </button>
-                </div>
                 <button id="reset-button"> <span class="material-symbols-rounded refresh-icon">refresh</span> Reset map </button>
         </div>
 
