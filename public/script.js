@@ -51,110 +51,120 @@ function blendColors(baseHex, accentHex, opacity) {
 
 /*------ QUESTION CYCLING ------*/
 
-function fadeIn(element, duration) {
-    element.style.opacity = 0;
-    element.style.display = ''; // reset to default display
-    const start = performance.now();
+//------ Fade helpers
+function fadeIn(el, duration) {
+    return new Promise(resolve => {
+        el.style.display = '';
+        el.style.opacity = 0;
+        const start = performance.now();
 
-    function animate(time) {
-        const elapsed = time - start;
-        const progress = Math.min(elapsed / duration, 1);
-        element.style.opacity = progress;
-        if (progress < 1) {
-            requestAnimationFrame(animate);
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-in
+            const easedProgress = progress * progress; // Quadratic ease-in
+            el.style.opacity = easedProgress;
+            if (progress < 1) requestAnimationFrame(step);
+            else resolve();
         }
-    }
 
-    requestAnimationFrame(animate);
+        requestAnimationFrame(step);
+    });
 }
 
-function fadeOut(element, duration, callback) {
-    const start = performance.now();
+function fadeOut(el, duration) {
+    return new Promise(resolve => {
+        const start = performance.now();
 
-    function animate(time) {
-        const elapsed = time - start;
-        const progress = Math.min(elapsed / duration, 1);
-        element.style.opacity = 1 - progress;
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        } else {
-            element.style.display = 'none'; // hide the element completely
-            if (callback) callback();
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out
+            const easedProgress = 1 - Math.pow(1 - progress, 2); // Quadratic ease-out
+            el.style.opacity = 1 - easedProgress;
+            if (progress < 1) requestAnimationFrame(step);
+            else {
+                el.style.display = 'none';
+                resolve();
+            }
         }
-    }
 
-    requestAnimationFrame(animate);
+        requestAnimationFrame(step);
+    });
 }
+
+
+//------ Progress animation
+function animateProgressBar(duration) {
+    return new Promise(resolve => {
+        progressBar.style.width = '0%';
+        const start = performance.now();
+
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            progressBar.style.width = `${progress * 100}%`;
+            if (progress < 1) requestAnimationFrame(step);
+            else resolve();
+        }
+
+        requestAnimationFrame(step);
+    });
+}
+
+//------  Question cycle logic (no timers)
+let current = 0;
+
+async function showQuestionCycle() {
+    const question = questions[current];
+
+    // Update counter
+    document.getElementById('current-question').textContent = current + 1;
+
+    // Fade in both question + progress bar
+    await Promise.all([
+        fadeIn(question, transition),
+        fadeIn(progressBar, transition)
+    ]);
+
+    // Animate the progress bar
+    await animateProgressBar(showQuestion);
+
+    // Fade out both at the same time
+    await Promise.all([
+        fadeOut(question, transition),
+        fadeOut(progressBar, transition)
+    ]);
+
+    // ⏱ Reset progress bar width *after* fade out completes
+    progressBar.style.width = '0%';
+
+    // Move to next question
+    current = (current + 1) % questions.length;
+
+    // Call the next cycle
+    showQuestionCycle();
+}
+
+
+ //------  Initial setup
+// Duration settings
+const transition = 800;
+const showQuestion = 10000;
 
 const questions = document.querySelectorAll('.question');
-let current = 0;
 const progressBar = document.querySelector('.question-progress');
 
-// Timing configuration
-const transition = 800;
-// const pauseDuration = 300;
-const pauseDuration = 0;
-const showQuestion = 10000;
-const intervalDuration = (transition * 2) + pauseDuration + showQuestion;
-
-let startTime;
-let animationFrameId;
-
-function animateProgressBar(duration) {
-    progressBar.style.width = '0%';
-    progressBar.style.opacity = 1;
-    startTime = performance.now();
-
-    function step(time) {
-        const elapsed = time - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        progressBar.style.width = `${progress * 100}%`;
-        if (progress < 1) {
-            animationFrameId = requestAnimationFrame(step);
-        }
-    }
-
-    requestAnimationFrame(step);
-}
-
-function showNextQuestion() {
-    let fadeOutCount = 0;
-
-    function handleFadeOutComplete() {
-        fadeOutCount++;
-        if (fadeOutCount === 2) {
-            // Both question and progress bar are faded out
-            current = (current + 1) % questions.length;
-
-            // Update current question number
-            document.getElementById('current-question').textContent = current + 1;
-
-            const nextQuestion = questions[current];
-            nextQuestion.style.display = '';
-            fadeIn(nextQuestion, transition);
-            fadeIn(progressBar, transition);
-            animateProgressBar(showQuestion);
-        }
-    }
-
-    // Start both fade-outs at the same time
-    fadeOut(questions[current], transition, handleFadeOutComplete);
-    fadeOut(progressBar, transition, handleFadeOutComplete);
-}
-
-
-// Init
-questions.forEach((q, index) => {
-    if (index !== 0) {
-        q.style.opacity = 0;
-        q.style.display = 'none';
-    }
+// Hide all questions initially
+questions.forEach((q, i) => {
+    q.style.opacity = 0;
+    q.style.display = 'none';
 });
-progressBar.style.opacity = 1;
-animateProgressBar(showQuestion);
+progressBar.style.opacity = 0;
+progressBar.style.width = '0%';
 
-// Loop
-setInterval(showNextQuestion, intervalDuration);
+// Start loop
+showQuestionCycle();
 
 
 
