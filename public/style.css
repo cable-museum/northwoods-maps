@@ -301,6 +301,7 @@ button .material-symbols-rounded {
     opacity: 0.8;
 }
 
+
 #cancel-button {
     bottom: 16px;
     left: 16px;
@@ -409,6 +410,18 @@ button .material-symbols-rounded {
         padding-right: 16px;
         padding-left: 4px;
     }
+
+    #reset-button {
+        font-size: 18px;
+        padding: 16px;
+}
+
+    #reset-button .material-symbols-rounded {
+        font-size: 20px;
+        padding-right: 8px;
+        font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 800,
+            /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
+}
 }
 
 @media (min-width: 1610px) {

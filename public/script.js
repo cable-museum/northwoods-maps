@@ -121,7 +121,7 @@ function unselectCard(card) {
 function checkResetButtonState() {
     const resetButton = document.getElementById("reset-button");
     
-    if (countMapsSelected() <= 1) {
+    if (countMapsSelected() < 1) {
       resetButton.style.display = "none";
     }
     else {
