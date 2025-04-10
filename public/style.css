@@ -474,6 +474,10 @@ button .material-symbols-rounded {
         line-height: 16px;
     }
 
+    #intro {
+        margin-bottom: 8px;
+    }
+
     .controls-container {
         order: 2;
         width: 100%;
