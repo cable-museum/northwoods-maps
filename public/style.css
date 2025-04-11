@@ -166,23 +166,23 @@ p {
 }
 
 #question-container {
-  position: relative;
-  height: 6em;
-  overflow: hidden;
-  width: 100%;
+    position: relative;
+    height: 6em;
+    overflow: hidden;
+    width: 100%;
 }
 
 .question {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  width: 100%;
-  color: var(--medium);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    color: var(--medium);
 }
 
 .question.active {
-  opacity: 100%
+    opacity: 100%
 }
 
 /*------ CARD STYLES ------*/
@@ -284,12 +284,12 @@ p {
 
 /* Reset hover styles for mobile */
 @media (hover: none) {
-  .card:hover {
-    background-color: var(--card);
-  }
-  .add-icon:hover  {
-    color: var(--border); 
-  }
+    .card:hover {
+        background-color: var(--card);
+    }
+    .add-icon:hover  {
+        color: var(--border); 
+    }
 }
 
 
@@ -333,9 +333,6 @@ button .material-symbols-rounded {
         /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
 }
 
-.map-container button {
-}
-
 #reset-button {
     position: absolute;
     display: none;
@@ -343,38 +340,6 @@ button .material-symbols-rounded {
     right: 16px;
     opacity: 0.8;
 }
-
-
-#cancel-button {
-    bottom: 16px;
-    left: 16px;
-}
-
-#reset-warning {
-/*    display: flex;*/
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: var(--light);
-    background-color: var(--dark);
-    padding: 16px;
-    font-size: 13px;
-    opacity: 0.8;
-    border-radius: 8px;
-}
-
-#reset-warning div{
-    min-width: 160px;
-    padding: 8px 8px 0 8px;
-}
-
 
 /* Base holds space, determines the width and height. */
 .svg-base {
