@@ -295,7 +295,6 @@ p {
 /*------ MAP STYLES ------*/
 
 .map-container {
-    position: relative;
     display: flex;
     margin: auto 0;
     width: 70%;
