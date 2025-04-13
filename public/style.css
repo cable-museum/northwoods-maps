@@ -61,7 +61,6 @@ body::-webkit-scrollbar {
 
 body {
     font-family: "Kumbh Sans", Arial, sans-serif;
-    min-height: 100vh; /* Ensure full height */
     color: var(--dark);
     background-color: var(--background);
     /*  display: flex;
