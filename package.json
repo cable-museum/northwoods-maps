@@ -1,5 +1,5 @@
 {
-  "devDependencies": {
-    "browser-sync": "^3.0.3"
-  }
+    "devDependencies": {
+        "browser-sync": "^3.0.4"
+    }
 }

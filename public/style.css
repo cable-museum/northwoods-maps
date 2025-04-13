@@ -2,7 +2,7 @@
     /*  --- COLORS ---*/
     /*text*/
     --light: #fefffa;
-    --medium: #74776F;
+    --medium: #74776f;
     --dark: #1d221b;
     /*main*/
     --primary: #204f0a;
@@ -15,7 +15,7 @@
     /*maps*/
     --maple: #c2911e;
     --balsam: #126057;
-    --birch: #B0BF33;
+    --birch: #b0bf33;
     --hemlock: #c73c40;
     --glacier: #68b6bc;
     --loon: #464eb2;
@@ -100,7 +100,7 @@ h1 {
 h2 {
     font-weight: 500;
     font-size: 18px;
-/*    margin: 32px 0 8px 0;*/
+    /*    margin: 32px 0 8px 0;*/
 }
 
 h3 {
@@ -119,8 +119,8 @@ p {
 }
 
 #intro {
-        margin-bottom: 4px;
-    }
+    margin-bottom: 4px;
+}
 
 /*------ CARD STYLES ------*/
 
@@ -162,27 +162,27 @@ p {
     height: 100%;
     width: 0%;
     border-radius: 8px;
-    opacity: 1; 
+    opacity: 1;
 }
 
 #question-container {
-  position: relative;
-  height: 6em;
-  overflow: hidden;
-  width: 100%;
+    position: relative;
+    height: 6em;
+    overflow: hidden;
+    width: 100%;
 }
 
 .question {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  width: 100%;
-  color: var(--medium);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    color: var(--medium);
 }
 
 .question.active {
-  opacity: 100%
+    opacity: 100%;
 }
 
 /*------ CARD STYLES ------*/
@@ -284,19 +284,17 @@ p {
 
 /* Reset hover styles for mobile */
 @media (hover: none) {
-  .card:hover {
-    background-color: var(--card);
-  }
-  .add-icon:hover  {
-    color: var(--border); 
-  }
+    .card:hover {
+        background-color: var(--card);
+    }
+    .add-icon:hover {
+        color: var(--border);
+    }
 }
-
 
 /*------ MAP STYLES ------*/
 
 .map-container {
-    position: relative;
     display: flex;
     margin: auto 0;
     width: 70%;
@@ -307,7 +305,6 @@ p {
     position: sticky;
     top: 0px;
 }
-
 
 button {
     display: flex;
@@ -333,9 +330,6 @@ button .material-symbols-rounded {
         /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
 }
 
-.map-container button {
-}
-
 #reset-button {
     position: absolute;
     display: none;
@@ -343,38 +337,6 @@ button .material-symbols-rounded {
     right: 16px;
     opacity: 0.8;
 }
-
-
-#cancel-button {
-    bottom: 16px;
-    left: 16px;
-}
-
-#reset-warning {
-/*    display: flex;*/
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: var(--light);
-    background-color: var(--dark);
-    padding: 16px;
-    font-size: 13px;
-    opacity: 0.8;
-    border-radius: 8px;
-}
-
-#reset-warning div{
-    min-width: 160px;
-    padding: 8px 8px 0 8px;
-}
-
 
 /* Base holds space, determines the width and height. */
 .svg-base {
@@ -404,7 +366,6 @@ button .material-symbols-rounded {
 /*------ RESPONSIVE STYLES ------*/
 
 @media (min-width: 1900px) {
-
     .forest-icon {
         font-size: 56px;
         margin-top: 60px;
@@ -468,14 +429,16 @@ button .material-symbols-rounded {
     #reset-button {
         font-size: 18px;
         padding: 16px;
-}
+    }
 
     #reset-button .material-symbols-rounded {
         font-size: 20px;
         padding-right: 8px;
-        font-variation-settings: "FILL" 0, /* 0 = outlined, 1 = filled */ "wght" 800,
-            /* Font weight (100-700) */ "GRAD" 0, /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
-}
+        font-variation-settings: "FILL" 0,
+            /* 0 = outlined, 1 = filled */ "wght" 800,
+            /* Font weight (100-700) */ "GRAD" 0,
+            /* Gradient, optional */ "opsz" 40; /* Optical size (20-48 recommended) */
+    }
 }
 
 @media (min-width: 1610px) {
@@ -485,7 +448,6 @@ button .material-symbols-rounded {
 }
 
 @media (max-width: 1310px) {
-
     .card .details {
         display: none;
     }
@@ -538,7 +500,7 @@ button .material-symbols-rounded {
         margin-bottom: 4px;
     }
 
-     .question-progress-container {
+    .question-progress-container {
         margin-bottom: 8px;
     }
 
@@ -554,7 +516,7 @@ button .material-symbols-rounded {
     p {
         font-size: 14px;
         line-height: 20px;
-    } 
+    }
 
     .controls-container {
         order: 2;

@@ -1,34 +1,36 @@
 {
-  "name": "Maps of the Northwoods",
-  "short_name": "App",
-  "start_url": "/northwoods-maps/",
-  "display": "standalone",
-  "background_color": "#f5f5ef",
-  "theme_color": "#f5f5ef",
-  "icons": [
-    {
-      "src": "./icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "./icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./screenshots/mobile.png",
-      "type": "image/png",
-      "sizes": "1080x1920",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "./screenshots/desktop.png",
-      "type": "image/png",
-      "sizes": "1920x1080",
-      "form_factor": "wide"
-    }
-  ]
+    "name": "Mapping the Northwoods",
+    "short_name": "Northwoods",
+    "start_url": "/northwoods-maps/",
+    "display": "standalone",
+    "background_color": "#f5f5ef",
+    "theme_color": "#f5f5ef",
+    "icons": [
+        {
+            "src": "./icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "./screenshots/mobile.png",
+            "type": "image/png",
+            "sizes": "1080x1920",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "./screenshots/desktop.png",
+            "type": "image/png",
+            "sizes": "1920x1080",
+            "form_factor": "wide"
+        }
+    ]
 }
