@@ -1,12 +1,23 @@
 /*------ COLOR VARIABLES ------*/
 
-const maps = ["balsam", "maple", "birch", "hemlock", "glacier", "loon", "oak", "whitepine"]
-const colors = {}
+const maps = [
+    "balsam",
+    "maple",
+    "birch",
+    "hemlock",
+    "glacier",
+    "loon",
+    "oak",
+    "whitepine",
+];
+const colors = {};
 
 for (const map of maps) {
-    const varName = `--${map}`;  // This creates --maple, --oak, etc.
-    const color = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    
+    const varName = `--${map}`; // This creates --maple, --oak, etc.
+    const color = getComputedStyle(document.documentElement)
+        .getPropertyValue(varName)
+        .trim();
+
     // Check if the color is valid
     if (color) {
         colors[map] = color;
@@ -17,7 +28,7 @@ for (const map of maps) {
 
 function hexToRgb(hex) {
     // Remove the hash (#) at the start if it's there
-    hex = hex.replace('#', '');
+    hex = hex.replace("#", "");
 
     // Convert the hex string into RGB
     let r = parseInt(hex.substring(0, 2), 16);
@@ -28,10 +39,10 @@ function hexToRgb(hex) {
 }
 
 function rgbToHex(rgb) {
-    const r = rgb.r.toString(16).padStart(2, '0');
-    const g = rgb.g.toString(16).padStart(2, '0');
-    const b = rgb.b.toString(16).padStart(2, '0');
-    
+    const r = rgb.r.toString(16).padStart(2, "0");
+    const g = rgb.g.toString(16).padStart(2, "0");
+    const b = rgb.b.toString(16).padStart(2, "0");
+
     return `#${r}${g}${b}`;
 }
 
@@ -53,15 +64,15 @@ function blendColors(baseHex, accentHex, opacity) {
 
 //------ Fade helpers
 // Adjustable variables for vertical transition
-const verticalDistance = 6;  // Distance to move vertically (in pixels)
+const verticalDistance = 6; // Distance to move vertically (in pixels)
 let verticalDuration = 400; // Duration of the vertical movement (in milliseconds), faster than fade
 
 // Updated fadeIn with smoother opacity transition using ease-in for opacity
 function fadeIn(el, fadeDuration, verticalDuration) {
-    return new Promise(resolve => {
-        el.style.display = '';  // Ensure element is displayed
-        el.style.opacity = 0;    // Start with invisible
-        el.style.transform = `translateY(${verticalDistance}px)`;  // Start below
+    return new Promise((resolve) => {
+        el.style.display = ""; // Ensure element is displayed
+        el.style.opacity = 0; // Start with invisible
+        el.style.transform = `translateY(${verticalDistance}px)`; // Start below
         const start = performance.now();
 
         function step(now) {
@@ -74,8 +85,13 @@ function fadeIn(el, fadeDuration, verticalDuration) {
             el.style.opacity = easedOpacityProgress;
 
             // Move element vertically with ease
-            const easedVerticalProgress = Math.min(elapsed / verticalDuration, 1);
-            el.style.transform = `translateY(${(1 - easedVerticalProgress) * verticalDistance}px)`; // Move up
+            const easedVerticalProgress = Math.min(
+                elapsed / verticalDuration,
+                1
+            );
+            el.style.transform = `translateY(${
+                (1 - easedVerticalProgress) * verticalDistance
+            }px)`; // Move up
 
             if (progress < 1) {
                 requestAnimationFrame(step);
@@ -90,7 +106,7 @@ function fadeIn(el, fadeDuration, verticalDuration) {
 
 // Updated fadeOut with adjustable vertical distance and speed, using cubic bezier ease-out
 function fadeOut(el, fadeDuration, verticalDuration) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         const start = performance.now();
 
         function step(now) {
@@ -103,12 +119,14 @@ function fadeOut(el, fadeDuration, verticalDuration) {
             el.style.opacity = 1 - easedProgress;
 
             // Move element vertically with ease
-            el.style.transform = `translateY(${verticalProgress * verticalDistance}px)`; // Move down
+            el.style.transform = `translateY(${
+                verticalProgress * verticalDistance
+            }px)`; // Move down
 
             if (progress < 1) {
                 requestAnimationFrame(step);
             } else {
-                el.style.display = 'none';
+                el.style.display = "none";
                 resolve();
             }
         }
@@ -117,11 +135,10 @@ function fadeOut(el, fadeDuration, verticalDuration) {
     });
 }
 
-
 //------ Progress animation
 function animateProgressBar(duration) {
-    return new Promise(resolve => {
-        progressBar.style.width = '0%';
+    return new Promise((resolve) => {
+        progressBar.style.width = "0%";
         const start = performance.now();
 
         function step(now) {
@@ -143,12 +160,12 @@ async function showQuestionCycle() {
     const question = questions[current];
 
     // Update counter
-    document.getElementById('current-question').textContent = current + 1;
+    document.getElementById("current-question").textContent = current + 1;
 
     // Fade in both question + progress bar
     await Promise.all([
         fadeIn(question, transition, verticalDuration),
-        fadeIn(progressBar, transition, verticalDuration)
+        fadeIn(progressBar, transition, verticalDuration),
     ]);
 
     // Animate the progress bar
@@ -157,11 +174,11 @@ async function showQuestionCycle() {
     // Fade out both at the same time
     await Promise.all([
         fadeOut(question, transition, verticalDuration),
-        fadeOut(progressBar, transition, verticalDuration)
+        fadeOut(progressBar, transition, verticalDuration),
     ]);
 
     // ⏱ Reset progress bar width *after* fade out completes
-    progressBar.style.width = '0%';
+    progressBar.style.width = "0%";
 
     // Move to next question
     current = (current + 1) % questions.length;
@@ -172,25 +189,22 @@ async function showQuestionCycle() {
 
 //------  Initial setup
 // Duration settings
-const transition = 800;  // Fade-in/out duration
+const transition = 800; // Fade-in/out duration
 const showQuestion = 10000;
 
-const questions = document.querySelectorAll('.question');
-const progressBar = document.querySelector('.question-progress');
+const questions = document.querySelectorAll(".question");
+const progressBar = document.querySelector(".question-progress");
 
 // Hide all questions initially
 questions.forEach((q, i) => {
     q.style.opacity = 0;
-    q.style.display = 'none';
+    q.style.display = "none";
 });
 progressBar.style.opacity = 0;
-progressBar.style.width = '0%';
+progressBar.style.width = "0%";
 
 // Start loop
 showQuestionCycle();
-
-
-
 
 /*------ MAP BUTTONS ------*/
 
@@ -207,7 +221,7 @@ function hideMap(map) {
 function resetAll() {
     document.querySelectorAll(".card.is-selected").forEach((card) => {
         unselectCard(card);
-      });
+    });
 
     document.querySelectorAll(".overlay").forEach((map) => {
         map.classList.remove("is-visible");
@@ -217,43 +231,40 @@ function resetAll() {
         container.classList.remove("is-visible");
     });
     checkResetButtonState();
-
 }
 
-function selectCard (card, map){
-  card.classList.add("is-selected");
-  card.style.borderColor = colors[map];
-  card.style.backgroundColor = blendColors('#f5f5ef', colors[map], 0.2);
+function selectCard(card, map) {
+    card.classList.add("is-selected");
+    card.style.borderColor = colors[map];
+    card.style.backgroundColor = blendColors("#f5f5ef", colors[map], 0.2);
 
-  const checkIcon = card.querySelector(".check-icon");
-  checkIcon.style.color = colors[map];
+    const checkIcon = card.querySelector(".check-icon");
+    checkIcon.style.color = colors[map];
 }
 
 function unselectCard(card) {
-  card.classList.remove("is-selected");
-  card.style.borderColor = "";
-  card.style.backgroundColor = "";
+    card.classList.remove("is-selected");
+    card.style.borderColor = "";
+    card.style.backgroundColor = "";
 }
 
 function checkResetButtonState() {
     const resetButton = document.getElementById("reset-button");
-    
+
     if (countMapsSelected() < 1) {
-      resetButton.style.display = "none";
-    }
-    else {
-      resetButton.style.display = "flex";
+        resetButton.style.display = "none";
+    } else {
+        resetButton.style.display = "flex";
     }
 }
 
 function countMapsSelected() {
     const count = document.querySelectorAll(`.card.is-selected`).length;
-    return count
+    return count;
 }
 
-
-document.getElementById("reset-button").addEventListener("click", function() {
-  resetAll();
+document.getElementById("reset-button").addEventListener("click", function () {
+    resetAll();
 });
 
 let sectionActive = "default";
@@ -269,10 +280,10 @@ document.querySelectorAll(".card").forEach((card) => {
             unselectCard(card);
             hideMap(map);
             updateAnimationState();
-        } 
+        }
         // Selected Card
         else {
-             if (sectionActive !== sectionID) {
+            if (sectionActive !== sectionID) {
                 // Reset if in a different section
                 resetAll();
             }
@@ -409,11 +420,12 @@ function updateAnimationState() {
 
 // ------- PWA --------
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js") // Use relative path
-      .then((reg) => console.log("Service Worker registered!", reg))
-      .catch((err) => console.log("Service Worker registration failed:", err));
-  });
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./service-worker.js") // Use relative path
+            .then((reg) => console.log("Service Worker registered!", reg))
+            .catch((err) =>
+                console.log("Service Worker registration failed:", err)
+            );
+    });
 }
-
-
