@@ -153,16 +153,17 @@ function animateProgressBar(duration) {
     });
 }
 
-//------  Question cycle logic (no timers)
+//------  Question cycle logic using requestAnimationFrame
 let current = 0;
 
-async function showQuestionCycle() {
+// Process the current question's lifecycle and queue the next one
+async function processCurrentQuestion() {
     const question = questions[current];
 
     // Update counter
     document.getElementById("current-question").textContent = current + 1;
 
-    // Fade in both question + progress bar
+    // Fade in question + progress bar
     await Promise.all([
         fadeIn(question, transition, verticalDuration),
         fadeIn(progressBar, transition, verticalDuration),
@@ -177,14 +178,14 @@ async function showQuestionCycle() {
         fadeOut(progressBar, transition, verticalDuration),
     ]);
 
-    // ⏱ Reset progress bar width *after* fade out completes
+    // Reset progress bar width after fade out completes
     progressBar.style.width = "0%";
 
     // Move to next question
     current = (current + 1) % questions.length;
 
-    // Call the next cycle
-    showQuestionCycle();
+    // Queue the next question
+    requestAnimationFrame(processCurrentQuestion);
 }
 
 //------  Initial setup
@@ -203,8 +204,8 @@ questions.forEach((q, i) => {
 progressBar.style.opacity = 0;
 progressBar.style.width = "0%";
 
-// Start loop
-showQuestionCycle();
+// Start cycle
+requestAnimationFrame(processCurrentQuestion);
 
 /*------ MAP BUTTONS ------*/
 
