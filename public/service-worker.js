@@ -82,6 +82,11 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+    // Only cache GET requests
+    if (event.request.method !== "GET") {
+        return event.respondWith(fetch(event.request));
+    }
+
     event.respondWith(
         fetch(event.request)
             .then((response) => {
@@ -97,7 +102,22 @@ self.addEventListener("fetch", (event) => {
             })
             .catch(() => {
                 // Network failed, try the cache
-                return caches.match(event.request);
+                return caches.match(event.request).then((cachedResponse) => {
+                    // If we found a match in the cache, return it
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+
+                    // If we didn't find a match in cache, return a fallback
+                    // or a default response for offline experience
+                    return new Response(
+                        "Network request failed and no cache available",
+                        {
+                            status: 503,
+                            statusText: "Service Unavailable",
+                        }
+                    );
+                });
             })
     );
 });
