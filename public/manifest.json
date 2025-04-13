@@ -1,6 +1,6 @@
 {
-    "name": "Maps of the Northwoods",
-    "short_name": "App",
+    "name": "Mapping the Northwoods",
+    "short_name": "Northwoods",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#f5f5ef",
